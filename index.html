@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+<meta name="theme-color" content="#0f151d" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>GTA: Grand Teacher Academy — 6-3 · LIGHT v2.0</title>
+<style>
+:root{--ink:#10151d;--glass:rgba(13,18,25,.84);--line:rgba(255,255,255,.14);--yellow:#ffd45a;--cyan:#73def7;--red:#ff646c}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0c1118;color:#fff;font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}button{font:inherit}
+#game{width:100%;height:100%;display:block;touch-action:none;background:#9fd6ed}
+#ui{position:fixed;inset:0;z-index:10;pointer-events:none}.glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 8px 30px #0004}
+#topLeft{position:absolute;left:max(12px,env(safe-area-inset-left));top:max(10px,env(safe-area-inset-top));display:grid;gap:7px;width:min(430px,68vw)}
+#timeBox{display:inline-flex;align-items:center;gap:8px;width:max-content;max-width:100%;border-radius:11px;padding:8px 12px;font-weight:950;font-size:14px}#place{color:#c8d2dc;font-weight:800}
+#missionBox{border-radius:12px;padding:9px 12px;max-width:100%}#missionKicker{font-size:10px;color:var(--yellow);font-weight:1000;letter-spacing:.13em}#missionText{font-size:14px;line-height:1.35;font-weight:900;margin-top:3px}
+#topRight{position:absolute;right:max(12px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));display:grid;justify-items:end;gap:7px}
+#money{border-radius:11px;padding:8px 12px;font-size:18px;font-weight:1000;letter-spacing:.02em}#stats{border-radius:11px;padding:7px 10px;font-size:12px;font-weight:950;white-space:nowrap}.heart{color:#ff777d}.brain{color:#ffb5d5}.stars{color:var(--yellow);letter-spacing:1px;margin-left:5px}
+#phoneBtn{position:absolute;right:max(14px,env(safe-area-inset-right));top:92px;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:#101720dc;color:#fff;font-size:20px;pointer-events:auto;box-shadow:0 8px 25px #0005}.badge{position:absolute;right:-4px;top:-4px;min-width:18px;height:18px;border-radius:9px;padding:0 5px;background:#ff525d;color:#fff;font-size:10px;font-weight:1000;display:none;align-items:center;justify-content:center}
+#mini{position:absolute;left:max(14px,env(safe-area-inset-left));bottom:max(15px,env(safe-area-inset-bottom));width:126px;height:126px;border-radius:50%;overflow:hidden;background:rgba(10,15,20,.9);border:3px solid rgba(255,255,255,.76);box-shadow:0 10px 30px #0005}#miniCanvas{width:100%;height:100%;display:block}
+#toast{position:absolute;left:50%;top:15%;transform:translate(-50%,-8px);min-width:230px;max-width:82vw;text-align:center;border-radius:12px;padding:10px 14px;font-weight:950;font-size:13px;opacity:0;transition:.2s;pointer-events:none}#toast.show{opacity:1;transform:translate(-50%,0)}
+#missionSplash{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%) scale(.96);text-align:center;opacity:0;transition:.25s;pointer-events:none;text-shadow:0 4px 18px #000b}#missionSplash.show{opacity:1;transform:translate(-50%,-50%) scale(1)}#missionSplash .big{font-size:clamp(30px,7vw,56px);font-weight:1000;letter-spacing:.04em}#missionSplash .small{font-size:12px;color:var(--yellow);font-weight:1000;letter-spacing:.2em;margin-top:4px}
+#prompt{position:absolute;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);border-radius:12px;padding:9px 14px;font-size:13px;font-weight:950;display:none}
+#dialog{position:absolute;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(680px,92vw);background:#111822f5;border:1px solid var(--line);border-radius:18px;padding:16px;pointer-events:auto;box-shadow:0 25px 80px #0009;display:none}.speaker{font-size:11px;color:var(--cyan);font-weight:1000;letter-spacing:.08em}.dialogText{font-size:16px;line-height:1.52;font-weight:800;margin:7px 0 13px}.choices{display:grid;gap:8px}.choice{border:0;border-radius:11px;padding:11px 13px;text-align:left;background:#273342;color:#fff;font-size:14px;font-weight:900}.choice:active{transform:scale(.99);background:#324256}
+#phonePanel{position:absolute;right:max(12px,env(safe-area-inset-right));top:145px;width:min(350px,88vw);max-height:62vh;overflow:auto;border-radius:17px;padding:14px;pointer-events:auto;display:none}.phoneHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.phoneHead b{font-size:16px}.close{border:0;background:#ffffff12;color:#fff;width:34px;height:34px;border-radius:10px;font-size:18px}.sectionTitle{font-size:10px;letter-spacing:.14em;color:#8fa0b4;font-weight:1000;margin:12px 0 6px}.task,.event{background:#ffffff0a;border:1px solid #ffffff0c;border-radius:10px;padding:9px 10px;margin-top:6px;font-size:12px;font-weight:800;line-height:1.35}.task.done{opacity:.52;text-decoration:line-through}.task.missed{border-color:#ff646c55}.event button{margin-top:7px;width:100%;border:0;border-radius:9px;padding:8px;background:#2c3d50;color:#fff;font-weight:900}
+#mobile{position:absolute;inset:0;display:none;pointer-events:none}.joy{position:absolute;left:max(18px,env(safe-area-inset-left));bottom:max(18px,env(safe-area-inset-bottom));width:106px;height:106px;border:2px solid rgba(255,255,255,.27);border-radius:50%;background:rgba(255,255,255,.08);pointer-events:auto;touch-action:none}.knob{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px;border-radius:50%;background:rgba(255,255,255,.78);box-shadow:0 4px 12px #0003}.action{position:absolute;right:max(21px,env(safe-area-inset-right));bottom:max(21px,env(safe-area-inset-bottom));width:75px;height:75px;border:0;border-radius:50%;background:rgba(255,212,90,.95);font-size:26px;font-weight:1000;color:#1c2733;pointer-events:auto;box-shadow:0 8px 24px #0004}.run{position:absolute;right:max(105px,calc(env(safe-area-inset-right) + 92px));bottom:max(93px,calc(env(safe-area-inset-bottom) + 72px));width:60px;height:60px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:11px;font-weight:1000;pointer-events:auto;border:1px solid rgba(255,255,255,.15)}
+#start{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 22%,#3a4b5e 0,#1b2531 38%,#090d12 100%);padding:22px}#startCard{text-align:center;width:min(760px,94vw)}.logo{font-size:clamp(62px,16vw,122px);line-height:.76;font-weight:1000;letter-spacing:-.09em;text-shadow:0 7px 0 #0005}.logoSub{font-size:clamp(18px,4.7vw,36px);font-weight:1000;letter-spacing:.11em;color:var(--yellow);margin-top:12px}.grade{font-size:clamp(34px,9vw,72px);font-weight:1000;margin-top:2px}.tagline{color:#c8d3df;font-weight:750;line-height:1.6;max-width:650px;margin:16px auto 22px}.startBtn{border:0;border-radius:15px;padding:14px 28px;background:var(--yellow);color:#10151d;font-size:18px;font-weight:1000;box-shadow:0 7px 0 #a77d09}.startBtn:active{transform:translateY(4px);box-shadow:0 3px 0 #a77d09}.version{margin-top:16px;color:#94a2b1;font-size:12px;line-height:1.55}#bootStatus{margin-top:9px;color:#ffdc78;font-size:12px;min-height:18px}
+#end{position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;background:rgba(5,8,12,.94);padding:20px}#endCard{width:min(620px,94vw);background:#171f29;border:1px solid var(--line);border-radius:20px;padding:22px}#endCard h1{margin:0;font-size:34px}.endGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}.endItem{background:#232e3a;border-radius:10px;padding:10px 12px;font-weight:850}.endItem span{float:right;color:var(--yellow)}
+#rotateHint{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:25;background:#111925e8;border:1px solid var(--line);border-radius:12px;padding:8px 12px;color:#dfe8f1;font-size:11px;font-weight:850;display:none;pointer-events:none}
+@media (pointer:coarse){#mobile{display:block}#mini{bottom:max(135px,calc(env(safe-area-inset-bottom) + 118px));width:112px;height:112px}#prompt{bottom:max(126px,calc(env(safe-area-inset-bottom) + 110px))}}
+@media (max-width:520px){#topLeft{width:64vw}#missionText{font-size:12px}#money{font-size:16px}#stats{font-size:11px}#phoneBtn{top:101px}.dialogText{font-size:15px}}
+@media (orientation:portrait) and (pointer:coarse){#rotateHint{display:block}}
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<div id="ui">
+  <div id="topLeft">
+    <div id="timeBox" class="glass"><span id="clock">08:20</span><span>·</span><span id="place">정문</span></div>
+    <div id="missionBox" class="glass"><div id="missionKicker">FREE ROAM</div><div id="missionText">학교 안에서 자유롭게 움직이세요.</div></div>
+  </div>
+  <div id="topRight">
+    <div id="money" class="glass">₩2,495,600</div>
+    <div id="stats" class="glass"><span class="heart">♥</span> <span id="hp">100</span>&nbsp;&nbsp;<span class="brain">●</span> <span id="mental">100</span><span class="stars" id="stars">☆☆☆☆☆</span></div>
+  </div>
+  <button id="phoneBtn">▦<span id="badge" class="badge">0</span></button>
+  <div id="mini" class="glass"><canvas id="miniCanvas" width="240" height="240"></canvas></div>
+  <div id="toast" class="glass"></div>
+  <div id="missionSplash"><div class="big" id="splashBig">MISSION START</div><div class="small" id="splashSmall">출근</div></div>
+  <div id="prompt" class="glass">A/E 상호작용</div>
+  <div id="dialog"><div class="speaker" id="speaker">SYSTEM</div><div class="dialogText" id="dialogText"></div><div id="choices" class="choices"></div></div>
+  <div id="phonePanel" class="glass"><div class="phoneHead"><b>교사용 휴대폰</b><button id="phoneClose" class="close">×</button></div><div class="sectionTitle">오늘 일정</div><div id="phoneTasks"></div><div class="sectionTitle">알림</div><div id="phoneEvents"></div></div>
+  <div id="mobile"><div id="joy" class="joy"><div id="knob" class="knob"></div></div><button id="run" class="run">RUN</button><button id="action" class="action">A</button></div>
+</div>
+<div id="start"><div id="startCard"><div class="logo">GTA</div><div class="logoSub">GRAND TEACHER ACADEMY</div><div class="grade">6-3</div><div class="tagline">귀여운 저폴리 학교에서 보내는 10분짜리 담임교사 하루 체험.<br>일정은 안내일 뿐입니다. 어디로 갈지는 플레이어가 정합니다.</div><button id="startBtn" class="startBtn">08:20 출근하기</button><div class="version">LIGHT v2.0 · THIRD-PERSON FREE ROAM<br>6학년 3반 담임 · 9호봉 · iPhone Safari / PC</div><div id="bootStatus"></div></div></div>
+<div id="end"><div id="endCard"><h1>DAY COMPLETE</h1><div style="color:#aab7c5;margin-top:5px">6학년 3반</div><div class="endGrid"><div class="endItem">처리한 상황 <span id="eHandled">0</span></div><div class="endItem">미처리 업무 <span id="eUnresolved">0</span></div><div class="endItem">학생과 대화 <span id="eTalk">0</span></div><div class="endItem">보호자 연락 <span id="eParent">0</span></div><div class="endItem">도움 요청 <span id="eHelp">0</span></div><div class="endItem">수업 준비 <span id="ePrep">0%</span></div><div class="endItem">체력 <span id="eHp">0</span></div><div class="endItem">멘탈 <span id="eMental">0</span></div></div><div style="font-weight:900;line-height:1.6">오늘도 계속 움직였지만 할 일은 조금 남았습니다.<br><span style="color:#ffd45a">내일 출근까지 15시간 50분</span></div></div></div>
+<div id="rotateHint">가로 화면에서 카메라와 이동이 더 편합니다.</div>
+<script>
+window.__threeLoaded=false;
+setTimeout(()=>{if(!window.__threeLoaded){const s=document.getElementById('bootStatus');if(s)s.textContent='3D 엔진을 불러오는 중입니다. 네트워크 상태를 확인해 주세요.'}},3500);
+</script>
+<script type="module">
+let THREE;
+try{THREE=await import('https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js')}catch(err){try{THREE=await import('https://unpkg.com/three@0.186.0/build/three.module.js')}catch(err2){document.getElementById('bootStatus').textContent='3D 엔진 연결에 실패했습니다. Safari에서 새로고침해 주세요.';throw err2}}
+window.__threeLoaded=true;
+const $=id=>document.getElementById(id);
+const isTouch=matchMedia('(pointer:coarse)').matches;
+let started=false,paused=false,dayEnded=false;
+let money=2495600,hp=100,mental=100,handled=0,unresolved=0,studentTalks=0,parentContacts=0,helpCount=0,lessonPrep=0;
+let gameSec=0;const dayDuration=600;let overtime=false;
+const keys={};let joyX=0,joyY=0,running=false,lastCamInput=0;
+const fired=new Set(),bellFired=new Set();let activeSide=null,eventSeq=0;const pendingEvents=[];const cooldowns={};
+
+// ---------- renderer ----------
+const canvas=$('game');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:!isTouch,powerPreference:'high-performance',alpha:false});
+renderer.setPixelRatio(Math.min(devicePixelRatio,isTouch?1.35:1.8));
+renderer.setSize(innerWidth,innerHeight,false);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.04;
+const scene=new THREE.Scene();scene.background=new THREE.Color(0xaedcf0);scene.fog=new THREE.Fog(0xaedcf0,25,58);
+const camera=new THREE.PerspectiveCamera(56,innerWidth/innerHeight,.08,90);
+const hemi=new THREE.HemisphereLight(0xe8f7ff,0x87946e,2.2);scene.add(hemi);
+const sun=new THREE.DirectionalLight(0xfff3d8,2.15);sun.position.set(-14,22,-10);scene.add(sun);
+
+const MAT={
+  grass:new THREE.MeshStandardMaterial({color:0x77ad64,roughness:1}), path:new THREE.MeshStandardMaterial({color:0xc7c5bb,roughness:1}),
+  corridor:new THREE.MeshStandardMaterial({color:0xe8dfca,roughness:1}), wall:new THREE.MeshStandardMaterial({color:0xf4f1e7,roughness:.95}), trim:new THREE.MeshStandardMaterial({color:0x6f8fa0,roughness:.9}),
+  wood:new THREE.MeshStandardMaterial({color:0xa96f3d,roughness:.9}), wood2:new THREE.MeshStandardMaterial({color:0x7b4e2c,roughness:.9}), metal:new THREE.MeshStandardMaterial({color:0xbcc8cd,roughness:.7}), dark:new THREE.MeshStandardMaterial({color:0x202832,roughness:.9}),
+  black:new THREE.MeshStandardMaterial({color:0x111316,roughness:.88}), white:new THREE.MeshStandardMaterial({color:0xf5f2ea,roughness:.9}), green:new THREE.MeshStandardMaterial({color:0x2f6c4b,roughness:1}), chalk:new THREE.MeshStandardMaterial({color:0x2d684d,roughness:1}),
+  red:new THREE.MeshStandardMaterial({color:0xd55c5c,roughness:.9}), yellow:new THREE.MeshStandardMaterial({color:0xe8c95b,roughness:.9}), blue:new THREE.MeshStandardMaterial({color:0x4f789b,roughness:.9}), glass:new THREE.MeshStandardMaterial({color:0x9ad2e7,roughness:.25,metalness:.05,transparent:true,opacity:.48}),
+};
+const flatMat=(color)=>new THREE.MeshStandardMaterial({color,roughness:.92,flatShading:true});
+function box(w,h,d,mat,x=0,y=h/2,z=0){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);scene.add(m);return m}
+function cyl(r1,r2,h,mat,x=0,y=h/2,z=0,seg=8){const m=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,seg,1,true),mat);m.position.set(x,y,z);scene.add(m);return m}
+function addBlob(parent,scale=1){const g=new THREE.Mesh(new THREE.CircleGeometry(.36*scale,18),new THREE.MeshBasicMaterial({color:0x000000,transparent:true,opacity:.17,depthWrite:false}));g.rotation.x=-Math.PI/2;g.position.y=.012;parent.add(g);return g}
+const colliders=[];const cameraWalls=[];
+function addCollider(x,z,w,d){colliders.push({x,z,hx:w/2,hz:d/2})}
+function wall(x,z,w,d,h=2.55){const m=box(w,h,d,MAT.wall,x,h/2,z);addCollider(x,z,w,d);cameraWalls.push(m);return m}
+function lowFence(x,z,w,d,h=.78){const m=box(w,h,d,MAT.trim,x,h/2,z);addCollider(x,z,w,d);cameraWalls.push(m);return m}
+function floorRect(x,z,w,d,mat){const m=box(w,.08,d,mat,x,.04,z);return m}
+
+// ---------- world ----------
+floorRect(0,-4,56,46,MAT.grass);floorRect(1,-1,45,5.2,MAT.corridor);floorRect(0,-17,18,12,MAT.path);
+// road / school entrance accents
+floorRect(0,-24,56,5,flatMat(0x8e8f8b));box(8,.12,.5,MAT.white,0,.08,-23);box(1.1,.12,5,MAT.white,-8,.08,-24);
+// central corridor outer edges decorative low trim
+box(45,.18,.18,MAT.trim,1,.18,2.55);box(45,.18,.18,MAT.trim,1,.18,-2.55);
+
+function segmentedWall(x1,x2,z,door,gap=1.45){const leftW=(door-gap/2)-x1,rightW=x2-(door+gap/2);if(leftW>.15)wall(x1+leftW/2,z,leftW,.18);if(rightW>.15)wall(door+gap/2+rightW/2,z,rightW,.18)}
+function room({x1,x2,z1,z2,label,color=0xe7ddc7,door=0,side='north',outerDoor=null}){
+  const cx=(x1+x2)/2,cz=(z1+z2)/2,w=x2-x1,d=z2-z1;floorRect(cx,cz,w-.15,d-.15,flatMat(color));
+  wall(x1,cz,.18,d);wall(x2,cz,.18,d);
+  if(side==='north'){
+    if(outerDoor===null)wall(cx,z2,w,.18);else segmentedWall(x1,x2,z2,outerDoor,1.8);
+    segmentedWall(x1,x2,z1,door);
+  }else{
+    if(outerDoor===null)wall(cx,z1,w,.18);else segmentedWall(x1,x2,z1,outerDoor,2.2);
+    segmentedWall(x1,x2,z2,door);
+  }
+  makeLabel(label,door,2.05,side==='north'?z1+.16:z2-.16,side==='north'?0:Math.PI);
+  return {cx,cz,w,d};
+}
+const rooms={
+  r61:room({x1:-21,x2:-15,z1:2.55,z2:10.3,label:'6-1',door:-18,color:0xe7dfc7}),
+  r62:room({x1:-14.6,x2:-8.6,z1:2.55,z2:10.3,label:'6-2',door:-11.6,color:0xe6ddc3}),
+  class63:room({x1:-8.2,x2:1.6,z1:2.55,z2:10.3,label:'6-3',door:-3.2,color:0xeadfc3}),
+  office:room({x1:2,x2:10.8,z1:2.55,z2:10.3,label:'교무실',door:6.4,color:0xd9e5d6}),
+  library:room({x1:11.2,x2:21,z1:2.55,z2:10.3,label:'도서실',door:15.7,color:0xe5d9ca}),
+  infirmary:room({x1:-21,x2:-14.5,z1:-10.3,z2:-2.55,label:'보건실',door:-17.7,color:0xd8eee8,side:'south'}),
+  counsel:room({x1:-14.1,x2:-7.4,z1:-10.3,z2:-2.55,label:'상담실',door:-10.7,color:0xe9dfeb,side:'south'}),
+  lobby:room({x1:-7,x2:2.8,z1:-10.3,z2:-2.55,label:'현관',door:-2.1,color:0xe5e6e0,side:'south',outerDoor:-2.1}),
+  cafe:room({x1:3.2,x2:13.7,z1:-10.3,z2:-2.55,label:'급식실',door:8.2,color:0xeadfc9,side:'south'}),
+  principal:room({x1:14.1,x2:21,z1:-10.3,z2:-2.55,label:'교장실',door:17.5,color:0xe7dccf,side:'south'}),
+};
+// lobby exterior entrance frame
+box(.18,2.4,.22,MAT.trim,-3.25,1.2,-10.25);box(.18,2.4,.22,MAT.trim,-.95,1.2,-10.25);box(2.48,.18,.22,MAT.trim,-2.1,2.32,-10.25);
+// corridor windows / notice boards
+for(const x of [-19,-12.5,-5,4,13,19]){const w=box(2.5,.95,.06,MAT.chalk,x,1.45,2.67);w.rotation.x=0}
+for(const x of [-18,-11,6,15])box(1.8,.75,.06,flatMat(0xc68b58),x,1.25,-2.67);
+// outside entrance gate markers
+box(.28,2.4,.28,MAT.trim,-4,1.2,-21);box(.28,2.4,.28,MAT.trim,4,1.2,-21);box(8,.25,.28,MAT.trim,0,2.25,-21);makeLabel('학교 정문',0,2.6,-20.8,0,.9);
+// trees
+for(const [x,z,s] of [[-18,-17,1.2],[17,-18,1.15],[-22,-8,1],[23,-7,1.05]]){const trunk=cyl(.18,.24,1.7,flatMat(0x7f5739),x,.85,z,7);const crown=new THREE.Mesh(new THREE.IcosahedronGeometry(1.25*s,1),flatMat(0x4f9452));crown.position.set(x,2.25,z);scene.add(crown)}
+// playground goal + bench
+box(4,.16,.16,MAT.white,-14,.16,-17);box(.16,2.2,.16,MAT.white,-16,1.1,-17);box(.16,2.2,.16,MAT.white,-12,1.1,-17);box(2.6,.18,.55,MAT.wood,12,.72,-18);box(.15,.7,.15,MAT.dark,11,.35,-18);box(.15,.7,.15,MAT.dark,13,.35,-18);
+// vending machine outside lobby
+box(.85,1.8,.6,flatMat(0x5a778a),2.1,.9,-11.2);box(.58,.72,.035,flatMat(0x242c34),2.1,1.08,-10.89);addCollider(2.1,-11.2,.85,.6);
+
+// classroom furniture 6-3
+function desk(x,z){box(1.05,.08,.55,MAT.wood,x,.72,z);box(.07,.66,.07,MAT.dark,x-.42,.35,z-.19);box(.07,.66,.07,MAT.dark,x+.42,.35,z-.19);box(.07,.66,.07,MAT.dark,x-.42,.35,z+.19);box(.07,.66,.07,MAT.dark,x+.42,.35,z+.19);addCollider(x,z,1.05,.55)}
+for(let r=0;r<4;r++)for(let c=0;c<6;c++)desk(-7.1+c*1.45,4.1+r*1.35);
+box(2.25,.9,.72,MAT.wood,-3.1,.48,9.0);addCollider(-3.1,9,2.25,.72);box(5.7,1.1,.08,MAT.chalk,-3.25,1.35,10.08);box(1.2,1.9,.45,flatMat(0xc9d0d1),.7,.95,8.9);addCollider(.7,8.9,1.2,.45);
+// other class rooms simplified desks
+for(const rx of [-18,-11.6])for(let r=0;r<3;r++)for(let c=0;c<4;c++)desk(rx-2.1+c*1.35,4.5+r*1.5);
+// office tables, PCs, copier, coffee corner
+function officeDesk(x,z,rot=0){const top=box(1.55,.1,.72,MAT.wood,x,.72,z);top.rotation.y=rot;addCollider(x,z,1.55,.72);box(.58,.42,.08,MAT.dark,x,.98,z-.25)}
+for(const [x,z] of [[3.5,4.3],[6,4.3],[8.5,4.3],[3.5,6.5],[6,6.5],[8.5,6.5]])officeDesk(x,z);
+box(1,1.15,.75,MAT.metal,9.6,.58,8.6);addCollider(9.6,8.6,1,.75);makeLabel('복사기',9.6,1.45,8.15,0,.45);
+box(.7,1.3,.6,flatMat(0x715f50),2.8,.65,8.7);addCollider(2.8,8.7,.7,.6);makeLabel('커피',2.8,1.55,8.35,0,.4);
+// library shelves/tables
+for(const x of [12.2,14.4,16.6,18.8]){box(.55,1.9,3.5,MAT.wood2,x,.95,8.2);addCollider(x,8.2,.55,3.5)}
+for(const z of [4.6,6]){box(2.6,.1,.8,MAT.wood,16,.72,z);addCollider(16,z,2.6,.8)}
+// infirmary
+for(const z of [-8.4,-5.8]){box(2.7,.4,1.15,MAT.white,-18.5,.52,z);box(2.7,.18,1.15,flatMat(0x8fc4cf),-18.5,.78,z);addCollider(-18.5,z,2.7,1.15)}
+box(1.1,1.8,.45,MAT.white,-15.3,.9,-8.6);addCollider(-15.3,-8.6,1.1,.45);
+// counseling room
+box(2.8,.7,.85,flatMat(0x8b6c91),-10.9,.36,-8.3);box(1.15,.42,1.15,MAT.wood,-10.9,.24,-6.4);box(2.2,.7,.8,flatMat(0x76917d),-10.9,.36,-4.7);addCollider(-10.9,-8.3,2.8,.85);addCollider(-10.9,-4.7,2.2,.8);
+// cafeteria
+for(const z of [-8.2,-6,-3.9])for(const x of [5.2,8.2,11.2]){box(2.2,.1,.7,MAT.wood,x,.72,z);addCollider(x,z,2.2,.7)}
+box(8.5,.9,.8,MAT.metal,8.5,.48,-9.55);addCollider(8.5,-9.55,8.5,.8);
+// principal room
+box(2.5,.9,.8,MAT.wood,17.5,.48,-8.2);addCollider(17.5,-8.2,2.5,.8);box(2.6,.7,.8,flatMat(0x6b594e),17.5,.36,-4.5);addCollider(17.5,-4.5,2.6,.8);
+// hallway planters/drinking fountain
+for(const [x,z] of [[-8,0],[11,0]]){box(.5,.5,.5,flatMat(0xb6a17d),x,.25,z);const leaf=new THREE.Mesh(new THREE.IcosahedronGeometry(.42,1),flatMat(0x4e8b55));leaf.position.set(x,.78,z);scene.add(leaf)}
+box(.55,1.05,.45,MAT.metal,-1.4,.53,1.6);addCollider(-1.4,1.6,.55,.45);
+
+function makeLabel(text,x,y,z,ry=0,scale=.55){const c=document.createElement('canvas');c.width=512;c.height=128;const ctx=c.getContext('2d');ctx.clearRect(0,0,512,128);ctx.fillStyle='rgba(20,28,36,.82)';ctx.roundRect(5,8,502,112,20);ctx.fill();ctx.fillStyle='#fff';ctx.font='800 58px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,256,65);const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;const mat=new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false});const s=new THREE.Sprite(mat);s.position.set(x,y,z);s.scale.set(3.1*scale,.78*scale,1);scene.add(s);return s}
+
+// ---------- characters ----------
+const skinTones=[0xd8aa82,0xe1b18a,0xc99570,0xe7bc98];
+const studentColors=[0xe86968,0x5d8ec7,0x6ea16e,0xe3a84f,0x8b72bb,0x4f9b9d,0xd77f9a,0x6f7f9f,0xb06f51,0x4f92c1];
+function partBox(w,h,d,mat){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat)}
+function partSphere(r,mat,seg=8){return new THREE.Mesh(new THREE.SphereGeometry(r,seg,Math.max(6,seg-2)),mat)}
+function partCyl(r,h,mat,seg=7){return new THREE.Mesh(new THREE.CylinderGeometry(r*.9,r,h,seg),mat)}
+function buildHuman({adult=false,player=false,shirt=0x5a7fa1,pants=0x30343a,skin=0xd8aa82,hair=0x25201d,style=0,bag=false}={}){
+  const root=new THREE.Group();const scale=adult?1:0.79;root.scale.setScalar(scale);
+  const mats={skin:flatMat(skin),hair:flatMat(hair),shirt:flatMat(shirt),shirtDark:flatMat(new THREE.Color(shirt).multiplyScalar(.78).getHex()),pants:flatMat(pants),shoe:flatMat(0x1d2329),white:flatMat(0xf1efe8),bag:flatMat(0x6c4d34),eye:flatMat(0x17191c),mouth:flatMat(0x7b3f3f),tie:flatMat(0x9a4b4d)};
+  addBlob(root,adult?1.02:.88);
+  const torso=partBox(.58,.68,.32,mats.shirt);torso.position.y=1.18;root.add(torso);
+  // shirt opening / tie / badge
+  const bib=partBox(.16,.49,.025,mats.white);bib.position.set(0,1.22,.174);root.add(bib);
+  if(adult){const tie=partBox(.055,.30,.03,mats.tie);tie.position.set(0,1.21,.192);tie.rotation.z=.02;root.add(tie);const badge=partBox(.13,.16,.018,mats.white);badge.position.set(.19,1.18,.194);root.add(badge)}
+  const neck=partCyl(.095,.15,mats.skin,7);neck.position.y=1.59;root.add(neck);
+  const head=partSphere(.34,mats.skin,8);head.scale.set(1,.96,.88);head.position.y=1.91;root.add(head);
+  const hairTop=partSphere(.35,mats.hair,7);hairTop.scale.set(1.02,.48,.92);hairTop.position.set(0,2.18,-.015);root.add(hairTop);
+  if(style%3===0){const fringe=partBox(.36,.11,.07,mats.hair);fringe.position.set(-.06,2.10,.275);fringe.rotation.z=-.12;root.add(fringe)}
+  if(style%3===1){const fringe=partBox(.22,.15,.07,mats.hair);fringe.position.set(.12,2.08,.275);fringe.rotation.z=.16;root.add(fringe);const side=partBox(.09,.28,.11,mats.hair);side.position.set(-.30,2.02,.03);root.add(side)}
+  if(style%3===2){const back=partBox(.45,.34,.12,mats.hair);back.position.set(0,1.98,-.28);root.add(back)}
+  for(const sx of [-1,1]){const eye=partSphere(.035,mats.eye,6);eye.position.set(.115*sx,1.97,.292);eye.scale.set(1,.75,.45);root.add(eye);const brow=partBox(.105,.025,.025,mats.hair);brow.position.set(.115*sx,2.045,.305);brow.rotation.z=.12*sx;root.add(brow)}
+  const nose=partSphere(.032,mats.skin,5);nose.position.set(0,1.89,.323);nose.scale.set(.8,1.1,.8);root.add(nose);const mouth=partBox(.11,.022,.02,mats.mouth);mouth.position.set(0,1.81,.31);root.add(mouth);
+  const hip=partBox(.46,.22,.29,mats.pants);hip.position.y=.79;root.add(hip);
+  const limbs={arms:[],legs:[]};
+  for(const sx of [-1,1]){
+    const armPivot=new THREE.Group();armPivot.position.set(.38*sx,1.44,0);root.add(armPivot);const upper=partCyl(.085,.38,mats.shirtDark,7);upper.position.y=-.18;upper.rotation.z=.04*sx;armPivot.add(upper);const fore=partCyl(.075,.32,mats.shirt,7);fore.position.y=-.48;armPivot.add(fore);const hand=partSphere(.09,mats.skin,6);hand.position.y=-.68;armPivot.add(hand);limbs.arms.push(armPivot);
+    const legPivot=new THREE.Group();legPivot.position.set(.15*sx,.73,0);root.add(legPivot);const thigh=partBox(.18,.42,.23,mats.pants);thigh.position.y=-.20;legPivot.add(thigh);const shin=partBox(.16,.37,.20,mats.pants);shin.position.y=-.57;legPivot.add(shin);const shoe=partBox(.20,.13,.34,mats.shoe);shoe.position.set(0,-.81,.06);legPivot.add(shoe);limbs.legs.push(legPivot);
+  }
+  if(bag){const b=partBox(.42,.50,.15,mats.bag);b.position.set(.31,1.13,-.28);b.rotation.z=-.04;root.add(b);const strap=partBox(.055,1.00,.035,mats.bag);strap.position.set(-.04,1.24,.19);strap.rotation.z=-.50;root.add(strap)}
+  root.userData.limbs=limbs;root.userData.isHuman=true;return root
+}
+const player=buildHuman({adult:true,player:true,shirt:0x4f7394,pants:0x2a2e35,skin:0xd5a37e,hair:0x201b18,style:1,bag:true});player.position.set(0,0,-18);scene.add(player);let playerYaw=0,stepPhase=0,playerMoving=false;
+const npcs=[];
+function addNPC(name,x,z,opts={}){const model=buildHuman(opts);model.position.set(x,0,z);model.rotation.y=opts.yaw||0;scene.add(model);const o={name,model,base:new THREE.Vector3(x,0,z),target:new THREE.Vector3(x,0,z),type:opts.adult?'adult':'student',speed:opts.adult?0.58:0.68,nextMove:0,zone:opts.zone||'class',core:!!opts.core};npcs.push(o);return o}
+const coreNames=['민준','서윤','지호','도윤','예린','준서','소민','현우'];
+let si=0;for(let r=0;r<4;r++)for(let c=0;c<6;c++){const name=coreNames[si]||`학생 ${si+1}`;addNPC(name,-7.1+c*1.45,4.1+r*1.35,{shirt:studentColors[si%studentColors.length],pants:0x37404a,skin:skinTones[si%skinTones.length],hair:[0x24201c,0x3b2b23,0x17191b][si%3],style:si%3,bag:true,core:si<8,zone:'class'});si++}
+addNPC('6학년 부장',6.0,7.8,{adult:true,shirt:0x697b64,pants:0x30343a,skin:0xd3a17e,hair:0x34312d,style:0,zone:'office'});
+addNPC('보건교사',-17.2,-7.4,{adult:true,shirt:0x76a9a2,pants:0x45515c,skin:0xe0b08a,hair:0x342a26,style:2,zone:'infirmary'});
+addNPC('상담교사',-11.2,-6.9,{adult:true,shirt:0x8b789a,pants:0x3e4148,skin:0xd5a37e,hair:0x2a201c,style:2,zone:'counsel'});
+addNPC('교감',4.4,5.7,{adult:true,shirt:0x5d6873,pants:0x252a30,skin:0xce9972,hair:0x4a4741,style:0,zone:'office'});
+
+// ---------- camera ----------
+let camYaw=Math.PI,camPitch=.30,camDist=4.7;const camTarget=new THREE.Vector3();const desiredCam=new THREE.Vector3();const raycaster=new THREE.Raycaster();
+function angleLerp(a,b,t){let d=(b-a+Math.PI)%(Math.PI*2)-Math.PI;return a+d*t}
+function updateCamera(dt){if(performance.now()-lastCamInput>1200&&playerMoving){const behind=playerYaw+Math.PI;camYaw=angleLerp(camYaw,behind,1-Math.exp(-dt*1.25))}const head=camTarget.set(player.position.x,1.35,player.position.z);const horiz=camDist*Math.cos(camPitch),height=camDist*Math.sin(camPitch)+.55;desiredCam.set(head.x+Math.sin(camYaw)*horiz,head.y+height,head.z+Math.cos(camYaw)*horiz);const dir=desiredCam.clone().sub(head);const dist=dir.length();dir.normalize();raycaster.set(head,dir);raycaster.far=dist;const hits=raycaster.intersectObjects(cameraWalls,false);if(hits.length){const safe=Math.max(.75,hits[0].distance-.22);desiredCam.copy(head).addScaledVector(dir,safe)}camera.position.lerp(desiredCam,1-Math.exp(-dt*10));camera.lookAt(head.x,head.y+.12,head.z)}
+
+// ---------- zones / interactions ----------
+const zones=[
+ {id:'gate',label:'교문',x:0,z:-20,r:2.0},{id:'vending',label:'자판기',x:2.1,z:-11.2,r:1.25},{id:'entrance',label:'현관',x:-2.1,z:-6.2,r:2.2},
+ {id:'class',label:'6학년 3반',x:-3.2,z:6.3,r:4.5},{id:'teacherDesk',label:'6-3 교탁',x:-3.1,z:9.0,r:1.25},{id:'office',label:'교무실',x:6.4,z:6.4,r:4.0},{id:'copy',label:'복사기',x:9.6,z:8.6,r:1.2},{id:'coffee',label:'믹스커피',x:2.8,z:8.7,r:1.15},
+ {id:'library',label:'도서실',x:16,z:6.0,r:3.5},{id:'infirmary',label:'보건실',x:-17.7,z:-6.5,r:3.2},{id:'counsel',label:'상담실',x:-10.7,z:-6.3,r:3.0},{id:'cafe',label:'급식실',x:8.2,z:-6.3,r:4.4},{id:'principal',label:'교장실',x:17.5,z:-6.2,r:3.0},{id:'bench',label:'운동장 벤치',x:12,z:-18,r:1.4}
+];
+const goals=[
+ {id:'arrival',title:'출근',text:'6학년 3반으로 이동하세요.',start:0,due:58,zone:'class',x:-3.2,z:6.3,done:false,missed:false},
+ {id:'attendance',title:'출석 확인',text:'교탁에서 오늘 출석 상태를 확인하세요.',start:38,due:95,zone:'teacherDesk',x:-3.1,z:9,done:false,missed:false},
+ {id:'class1',title:'1교시',text:'6학년 3반에서 수업을 시작하세요.',start:82,due:170,zone:'class',x:-3.2,z:6.3,done:false,missed:false},
+ {id:'lunch',title:'급식',text:'급식실에서 점심시간을 확인하세요.',start:270,due:350,zone:'cafe',x:8.2,z:-6.3,done:false,missed:false},
+ {id:'dismissal',title:'하교 확인',text:'현관에서 학생 하교를 확인하세요.',start:435,due:505,zone:'entrance',x:-2.1,z:-6.2,done:false,missed:false},
+ {id:'records',title:'방과 후 정리',text:'교무실에서 기록과 내일 준비를 정리하세요.',start:500,due:585,zone:'office',x:6.4,z:6.4,done:false,missed:false},
+];
+const events=[
+ {t:68,title:'아직 비어 있는 자리',who:'출석 알림',text:'소민이가 아직 등교하지 않았고 보호자 연락도 확인되지 않습니다.',choices:[['학교 연락수단으로 확인한다',()=>{parentContacts++;handled++;mental-=1;}],['조금 더 기다린다',()=>{mental-=1;flags.missingWait=true;}]]},
+ {t:145,title:'모둠에서 말이 엇갈려요',who:'서윤',text:'“선생님, 저는 일부러 그런 게 아닌데 친구가 화났어요.”',choices:[['둘의 이야기를 차례로 듣는다',()=>{studentTalks+=2;handled++;mental-=1;}],['쉬는 시간에 다시 이야기하기로 한다',()=>{activeSide={title:'학생 갈등 확인',text:'6학년 3반에서 둘의 이야기를 확인하세요.',zone:'class',x:-3.2,z:6.3,due:gameSec+75,onComplete:()=>{studentTalks+=2;handled++;mental+=1;}};unresolved++;}]]},
+ {t:215,title:'선생님, 이거 드릴게요',who:'학생',text:'보호자가 감사 의미로 보낸 7만 원 상당의 물품을 학생이 건넵니다.',choices:[['마음만 받고 돌려준다',()=>{handled++;mental+=2;}],['교무실에서 즉시 반환 절차를 확인한다',()=>{activeSide={title:'선물 반환 확인',text:'교무실에서 반환·기록 절차를 확인하세요.',zone:'office',x:6.4,z:6.4,due:gameSec+70,onComplete:()=>{handled++;}};unresolved++;}],['게임상 그대로 받는다',()=>{money-=210000;mental-=8;unresolved++;toast('-₩210,000 · 게임상 가정 결과');}]]},
+ {t:320,title:'오늘은 잘 먹지 못하겠어요',who:'예린',text:'급식 시간에 예린이가 식사를 거의 하지 않고 있습니다.',choices:[['몸 상태와 이유를 조용히 확인한다',()=>{studentTalks++;handled++;mental+=1;}],['보건교사에게 상태 확인을 부탁한다',()=>{helpCount++;handled++;}]]},
+ {t:385,title:'선생님, 이거 읽어보세요',who:'학생',text:'학생이 직접 쓴 짧은 감사 편지를 건넵니다.',choices:[['편지를 읽는다',()=>{handled++;mental+=6;toast('멘탈 +6');}]]},
+ {t:455,title:'보호자 문의',who:'학교 연락',text:'“오늘 아이가 선생님께 지적을 받았다고 하는데 어떤 상황이었나요?”',choices:[['확인된 사실을 중심으로 설명한다',()=>{parentContacts++;handled++;mental-=2;}],['기록을 확인한 뒤 다시 연락드린다',()=>{parentContacts++;unresolved++;mental-=1;}]]},
+ {t:535,title:'생활지도 관련 사실확인',who:'SYSTEM',text:'지난주 생활지도와 관련한 사실확인 요청이 도착했습니다. 신고 자체만으로 잘못을 판정하지 않습니다.',choices:[['학교·교육지원청 지원 절차부터 확인한다',()=>{activeSide={title:'지원 절차 확인',text:'상담실에서 담당자와 지원 범위를 확인하세요.',zone:'counsel',x:-10.7,z:-6.3,due:gameSec+80,onComplete:()=>{helpCount++;handled++;}};unresolved++;}],['개인 법률상담을 먼저 예약한다',()=>{money-=150000;mental-=5;handled++;toast('-₩150,000 · 게임상 상담비');}]]}
+];
+const flags={};
+const bells=[{t:78,text:'🔔 1교시가 시작됩니다.'},{t:260,text:'🔔 점심시간입니다.'},{t:430,text:'🔔 하교 준비 시간입니다.'},{t:595,text:'🔔 16:30 · 퇴근할 수 있습니다.'}];
+function currentGoal(){if(activeSide)return activeSide;const active=goals.find(g=>!g.done&&!g.missed&&gameSec>=g.start);if(active)return active;const next=goals.find(g=>!g.done&&!g.missed&&gameSec<g.start);if(next)return {title:'FREE ROAM',text:`자유 행동 중 · 다음 일정 ${next.title}`,x:next.x,z:next.z};if(gameSec>=dayDuration)return {title:'퇴근 가능',text:'교문으로 가서 퇴근하거나 남아서 일을 더 처리할 수 있습니다.',x:0,z:-20};return {title:'FREE ROAM',text:'학교 안을 자유롭게 돌아다니세요.',x:player.position.x,z:player.position.z}}
+function placeName(x,z){if(z<-10.5)return z<-21?'교문 앞':'운동장';if(z>-2.5){if(x<-14.8)return'6학년 1반';if(x<-8.4)return'6학년 2반';if(x<1.8)return'6학년 3반';if(x<11)return'교무실';return'도서실'}if(z<-2.5){if(x<-14.4)return'보건실';if(x<-7.2)return'상담실';if(x<3)return'현관';if(x<14)return'급식실';return'교장실'}return'복도'}
+function interactable(){let best=null,bd=999;for(const z of zones){const d=Math.hypot(player.position.x-z.x,player.position.z-z.z);if(d<z.r&&d<bd){best={type:'zone',z};bd=d}}for(const n of npcs){const d=player.position.distanceTo(n.model.position);if(d<1.25&&d<bd){best={type:'npc',n};bd=d}}return best}
+function doInteract(){if(!started||paused)return;const n=interactable();if(!n){toast('가까운 상호작용 대상이 없습니다.');return}if(n.type==='npc')return talkNPC(n.n);const z=n.z;if(activeSide&&activeSide.zone===z.id){const s=activeSide;activeSide=null;unresolved=Math.max(0,unresolved-1);s.onComplete?.();handled++;missionSplash('MISSION COMPLETE',s.title);renderPhone();return}const g=goals.find(g=>!g.done&&g.zone===z.id&&gameSec>=Math.max(0,g.start-18));if(g){g.done=true;if(g.missed)unresolved=Math.max(0,unresolved-1);handled++;if(g.id==='records'){lessonPrep+=2}missionSplash(g.missed?'LATE COMPLETE':'MISSION COMPLETE',g.title);renderPhone();return}if(z.id==='gate'){if(gameSec>=dayDuration){showDialog('SYSTEM','오늘 근무시간이 끝났습니다. 남은 일을 더 처리할 수도 있습니다.',[['퇴근한다',endDay],['조금 더 남는다',()=>{overtime=true;toast('FREE ROAM · 야근 중');}]])}else toast('아직 퇴근 시간 전입니다.');return}if(z.id==='vending'&&cool('vending',30)){money-=1500;mental+=2;toast('-₩1,500 · 자판기 커피 · 멘탈 +2');return}if(z.id==='coffee'&&cool('coffee',26)){mental+=1;toast('믹스커피 · 멘탈 +1');return}if(z.id==='bench'&&cool('bench',35)){hp=Math.min(100,hp+3);mental+=2;toast('잠깐 쉬었습니다. · 체력 +3 · 멘탈 +2');return}if(z.id==='copy'&&cool('copy',20)){lessonPrep++;toast('활동지 출력 · 수업 준비 +');return}if(z.id==='office'&&cool('office',18)){if(unresolved>0){unresolved--;handled++;toast('밀린 업무 1건 정리')}else toast('교무실 업무를 확인했습니다.');return}if(z.id==='library'&&cool('library',22)){lessonPrep++;mental+=2;toast('내일 수업 준비 · 멘탈 +2');return}toast(`${z.label}을 확인했습니다.`)}
+function talkNPC(n){if(!cool('npc_'+n.name,14))return;if(n.type==='student'){showDialog(n.name,'“선생님!” 잠깐 이야기를 나눕니다.',[['응, 이야기해보자.',()=>{studentTalks++;handled++;mental=Math.min(100,mental+1)}],['지금은 급한 일이 있어.',()=>{}]])}else{showDialog(n.name,'“필요하면 말씀하세요.”',[['도움을 요청한다',()=>{helpCount++;mental=Math.min(100,mental+2);if(unresolved>0)unresolved--;}],['잠깐 이야기한다',()=>{mental=Math.min(100,mental+1)}],['괜찮습니다',()=>{}]])}}
+function cool(id,sec){if((cooldowns[id]||0)>gameSec){toast('조금 있다 다시 할 수 있습니다.');return false}cooldowns[id]=gameSec+sec;return true}
+function showDialog(who,text,choices){paused=true;$('speaker').textContent=who;$('dialogText').textContent=text;const c=$('choices');c.innerHTML='';choices.forEach(([label,fn])=>{const b=document.createElement('button');b.className='choice';b.textContent=label;b.onclick=()=>{fn?.();$('dialog').style.display='none';paused=false;renderPhone()};c.appendChild(b)});$('dialog').style.display='block'}
+function queueEvent(e){const ev={...e,id:++eventSeq};pendingEvents.push(ev);unresolved++;toast('📱 새 알림 · '+e.title);renderPhone()}
+function openEvent(ev){togglePhone(false);showDialog(ev.who,ev.text,ev.choices.map(([l,fn])=>[l,()=>{fn?.();pendingEvents.splice(pendingEvents.findIndex(x=>x.id===ev.id),1);unresolved=Math.max(0,unresolved-1);renderPhone()}]))}
+function renderPhone(){const t=$('phoneTasks'),e=$('phoneEvents');t.innerHTML='';for(const g of goals){const d=document.createElement('div');d.className='task '+(g.done?'done':g.missed?'missed':'');d.textContent=(g.done?'✓ ':g.missed?'! ':'○ ')+g.title+(g.missed&&!g.done?' · 미처리':'');t.appendChild(d)}e.innerHTML='';if(!pendingEvents.length){const d=document.createElement('div');d.className='event';d.textContent='새 알림이 없습니다.';e.appendChild(d)}else for(const ev of pendingEvents){const d=document.createElement('div');d.className='event';d.innerHTML=`<b>${ev.title}</b><br><span style="color:#aab7c5">${ev.who}</span>`;const b=document.createElement('button');b.textContent='확인';b.onclick=()=>openEvent(ev);d.appendChild(b);e.appendChild(d)}$('badge').textContent=pendingEvents.length;$('badge').style.display=pendingEvents.length?'flex':'none'}
+function togglePhone(force){const p=$('phonePanel');const show=force===undefined?p.style.display!=='block':force;p.style.display=show?'block':'none';renderPhone()}
+function toast(text){const e=$('toast');e.textContent=text;e.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>e.classList.remove('show'),2100)}
+function missionSplash(a,b){$('splashBig').textContent=a;$('splashSmall').textContent=b;$('missionSplash').classList.add('show');clearTimeout(missionSplash.timer);missionSplash.timer=setTimeout(()=>$('missionSplash').classList.remove('show'),1700);tone(660,.08);setTimeout(()=>tone(880,.09),95)}
+let audioCtx=null;function tone(freq,d=.09){try{audioCtx??=new (window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=freq;g.gain.setValueAtTime(.06,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+d);o.connect(g).connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+d)}catch{}}
+function ringBell(){tone(523,.09);setTimeout(()=>tone(659,.09),110);setTimeout(()=>tone(784,.12),220)}
+
+// ---------- collision / movement ----------
+function blocked(x,z){const r=.27;for(const c of colliders)if(Math.abs(x-c.x)<c.hx+r&&Math.abs(z-c.z)<c.hz+r)return true;return false}
+function updatePlayer(dt){let ix=(keys.KeyD?1:0)-(keys.KeyA?1:0)+joyX;let iy=(keys.KeyW?1:0)-(keys.KeyS?1:0)+joyY;let len=Math.hypot(ix,iy);playerMoving=len>.08;if(!playerMoving){animateHuman(player,0,dt);return}if(len>1){ix/=len;iy/=len}
+  const forward=new THREE.Vector3(-Math.sin(camYaw),0,-Math.cos(camYaw));const right=new THREE.Vector3(Math.cos(camYaw),0,-Math.sin(camYaw));const move=forward.multiplyScalar(iy).add(right.multiplyScalar(ix));if(move.lengthSq()<.001)return;move.normalize();
+  const speed=(running||keys.ShiftLeft||keys.ShiftRight)?4.45:2.8;const nx=player.position.x+move.x*speed*dt,nz=player.position.z+move.z*speed*dt;if(!blocked(nx,player.position.z))player.position.x=nx;if(!blocked(player.position.x,nz))player.position.z=nz;
+  const targetYaw=Math.atan2(move.x,move.z);playerYaw=angleLerp(playerYaw,targetYaw,1-Math.exp(-dt*12));player.rotation.y=playerYaw;stepPhase+=dt*((running||keys.ShiftLeft||keys.ShiftRight)?9.5:6.4);animateHuman(player,Math.sin(stepPhase)*(running?0.72:0.52),dt);if(running)hp=Math.max(0,hp-dt*.28)}
+function animateHuman(model,swing,dt){const l=model.userData.limbs;if(!l)return;l.arms[0].rotation.x=THREE.MathUtils.lerp(l.arms[0].rotation.x,swing,.22);l.arms[1].rotation.x=THREE.MathUtils.lerp(l.arms[1].rotation.x,-swing,.22);l.legs[0].rotation.x=THREE.MathUtils.lerp(l.legs[0].rotation.x,-swing*.75,.22);l.legs[1].rotation.x=THREE.MathUtils.lerp(l.legs[1].rotation.x,swing*.75,.22)}
+function wanderNPCs(dt){const now=gameSec;for(const n of npcs){if(n.core&&gameSec<260)continue;if(now>n.nextMove&&n.model.position.distanceTo(n.target)<.25){n.nextMove=now+5+Math.random()*10;const rad=n.type==='student'?1.4:1.0;n.target.set(n.base.x+(Math.random()-.5)*rad,0,n.base.z+(Math.random()-.5)*rad)}const v=n.target.clone().sub(n.model.position);v.y=0;if(v.length()>.18){v.normalize();const p=n.model.position.clone().addScaledVector(v,n.speed*dt);if(!blocked(p.x,p.z)){n.model.position.copy(p);n.model.rotation.y=angleLerp(n.model.rotation.y,Math.atan2(v.x,v.z),.08);const s=Math.sin((performance.now()/1000+n.base.x)*5)*.32;animateHuman(n.model,s,dt)}}}}
+function scheduleNPCs(){if(gameSec>=260&&!flags.lunchMove){flags.lunchMove=true;npcs.filter(n=>n.type==='student').forEach((n,i)=>{n.base.set(5.1+(i%6)*1.25,0,-8.3+Math.floor(i/6)*1.35);n.target.copy(n.base)});toast('학생들이 급식실로 이동합니다.')}if(gameSec>=360&&!flags.classReturn){flags.classReturn=true;npcs.filter(n=>n.type==='student').forEach((n,i)=>{n.base.set(-7.1+(i%6)*1.45,0,4.1+Math.floor(i/6)*1.35);n.target.copy(n.base)});toast('학생들이 교실로 돌아갑니다.')}if(gameSec>=435&&!flags.dismissMove){flags.dismissMove=true;npcs.filter(n=>n.type==='student').slice(0,12).forEach((n,i)=>{n.base.set(-4+(i%6)*1.25,0,-8.4+Math.floor(i/6)*1.25);n.target.copy(n.base)})}}
+
+// ---------- UI / mini map ----------
+const mini=$('miniCanvas'),mctx=mini.getContext('2d');
+function drawMini(){const w=mini.width,h=mini.height;mctx.clearRect(0,0,w,h);mctx.fillStyle='#121820';mctx.fillRect(0,0,w,h);const sc=3.7,ox=w/2,oz=h/2;const px=player.position.x,pz=player.position.z;function cv(x,z){return[ox+(x-px)*sc,oz+(z-pz)*sc]}
+ mctx.fillStyle='#5f705e';mctx.fillRect(0,0,w,h);mctx.fillStyle='#ded7c4';{const [x1,z1]=cv(-22,2.5),[x2,z2]=cv(22,-2.5);mctx.fillRect(x1,z1,x2-x1,z2-z1)}mctx.fillStyle='#ae9a7c';for(const r of [[-21,2.5,22,10.3],[-21,-10.3,21,-2.5]]){const [a,b]=cv(r[0],r[1]),[c,d]=cv(r[2],r[3]);mctx.fillRect(a,b,c-a,d-b)}const g=currentGoal();if(g){const [gx,gz]=cv(g.x,g.z);mctx.fillStyle='#ffd45a';mctx.beginPath();mctx.arc(gx,gz,7,0,Math.PI*2);mctx.fill()}mctx.save();mctx.translate(ox,oz);mctx.rotate(-playerYaw);mctx.fillStyle='#63e4ff';mctx.beginPath();mctx.moveTo(0,-10);mctx.lineTo(7,8);mctx.lineTo(-7,8);mctx.closePath();mctx.fill();mctx.restore()}
+function updateUI(){const total=8*60+20+gameSec*(490/dayDuration);const hh=Math.floor(total/60),mm=Math.floor(total%60);$('clock').textContent=`${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;$('place').textContent=placeName(player.position.x,player.position.z);$('money').textContent='₩'+Math.round(money).toLocaleString('ko-KR');$('hp').textContent=Math.round(Math.max(0,hp));$('mental').textContent=Math.round(Math.max(0,mental));const heat=Math.min(5,Math.max(0,Math.ceil(unresolved*.8)));$('stars').textContent='★'.repeat(heat)+'☆'.repeat(5-heat);const g=currentGoal();$('missionKicker').textContent=(g.title==='FREE ROAM'?'FREE ROAM':'CURRENT MISSION · '+g.title);$('missionText').textContent=g.text;const near=interactable();$('prompt').style.display=near?'block':'none';$('prompt').textContent=near?(near.type==='npc'?`A/E · ${near.n.name}와 대화`:`A/E · ${near.z.label}`):'';drawMini()}
+function updateEvents(){for(let i=0;i<events.length;i++)if(gameSec>=events[i].t&&!fired.has(i)){fired.add(i);queueEvent(events[i])}for(const b of bells)if(gameSec>=b.t&&!bellFired.has(b.t)){bellFired.add(b.t);ringBell();toast(b.text)}for(const g of goals)if(!g.done&&!g.missed&&gameSec>g.due){g.missed=true;unresolved++;toast('MISSED · '+g.title+' · 하루는 계속됩니다.');renderPhone()}if(activeSide&&gameSec>activeSide.due){toast('SIDE MISSION MISSED · '+activeSide.title);activeSide=null;unresolved++;renderPhone()}if(flags.missingWait&&gameSec>330&&!flags.missingFollow){flags.missingFollow=true;queueEvent({title:'출결 후속 연락',who:'보호자 연락',text:'“아침에 학교에서 연락이 늦었다고 들었습니다. 어떤 상황이었나요?”',choices:[['확인된 사실과 조치를 설명한다',()=>{parentContacts++;handled++;mental-=2;}],['관리자와 함께 확인 후 답한다',()=>{helpCount++;parentContacts++;handled++;mental-=1;}]]})}scheduleNPCs()}
+function endDay(){$('eHandled').textContent=handled;$('eUnresolved').textContent=unresolved;$('eTalk').textContent=studentTalks;$('eParent').textContent=parentContacts;$('eHelp').textContent=helpCount;$('ePrep').textContent=Math.min(100,lessonPrep*18)+'%';$('eHp').textContent=Math.round(hp);$('eMental').textContent=Math.round(mental);$('end').style.display='flex';paused=true;dayEnded=true}
+
+// ---------- controls ----------
+addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='KeyE'||e.code==='Space'){e.preventDefault();doInteract()}if(e.code==='Tab'){e.preventDefault();togglePhone()} });addEventListener('keyup',e=>keys[e.code]=false);
+let joyPointer=null;const joy=$('joy'),knob=$('knob');function setJoy(e){const r=joy.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;let dx=e.clientX-cx,dy=e.clientY-cy;const max=r.width*.34,len=Math.hypot(dx,dy);if(len>max){dx*=max/len;dy*=max/len}joyX=dx/max;joyY=-dy/max;knob.style.transform=`translate(${dx}px,${dy}px)`}
+joy.addEventListener('pointerdown',e=>{joyPointer=e.pointerId;joy.setPointerCapture(e.pointerId);setJoy(e)});joy.addEventListener('pointermove',e=>{if(e.pointerId===joyPointer)setJoy(e)});function resetJoy(){joyPointer=null;joyX=joyY=0;knob.style.transform='translate(0,0)'}joy.addEventListener('pointerup',resetJoy);joy.addEventListener('pointercancel',resetJoy);
+$('action').addEventListener('pointerdown',e=>{e.preventDefault();doInteract()});$('run').addEventListener('pointerdown',e=>{e.preventDefault();running=true});$('run').addEventListener('pointerup',()=>running=false);$('run').addEventListener('pointercancel',()=>running=false);
+$('phoneBtn').onclick=()=>togglePhone();$('phoneClose').onclick=()=>togglePhone(false);
+let camPointer=null,lastPX=0,lastPY=0;canvas.addEventListener('pointerdown',e=>{if(isTouch&&e.clientX<innerWidth*.42)return;camPointer=e.pointerId;lastPX=e.clientX;lastPY=e.clientY;canvas.setPointerCapture(e.pointerId);lastCamInput=performance.now()});canvas.addEventListener('pointermove',e=>{if(e.pointerId!==camPointer)return;const dx=e.clientX-lastPX,dy=e.clientY-lastPY;lastPX=e.clientX;lastPY=e.clientY;camYaw-=dx*.006;camPitch=THREE.MathUtils.clamp(camPitch+dy*.004,.08,.52);lastCamInput=performance.now()});canvas.addEventListener('pointerup',e=>{if(e.pointerId===camPointer)camPointer=null});canvas.addEventListener('pointercancel',()=>camPointer=null);
+
+$('startBtn').onclick=()=>{started=true;$('start').style.display='none';audioCtx??=new (window.AudioContext||window.webkitAudioContext)();missionSplash('MISSION START','출근');renderPhone();lastTime=performance.now()};
+addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight,false);renderer.setPixelRatio(Math.min(devicePixelRatio,isTouch?1.35:1.8));camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()});
+
+let lastTime=performance.now();function loop(now){requestAnimationFrame(loop);const dt=Math.min(.035,(now-lastTime)/1000||0);lastTime=now;if(started&&!paused&&!dayEnded){updatePlayer(dt);wanderNPCs(dt);updateCamera(dt);if(!overtime&&gameSec<dayDuration){gameSec=Math.min(dayDuration,gameSec+dt);mental=Math.max(0,mental-dt*.009)}updateEvents();updateUI()}else{updateCamera(dt);if(started)updateUI()}renderer.render(scene,camera)}updateCamera(.016);renderer.render(scene,camera);requestAnimationFrame(loop);
+$('bootStatus').textContent='';
+</script>
+</body>
+</html>
