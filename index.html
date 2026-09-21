@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+<title>GTA: Grand Teacher Academy — 6-3 LIGHT v1.4 FREE ROAM</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101318;color:#fff;font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+#c{width:100%;height:100%;display:block;touch-action:none;background:linear-gradient(#9bd3ef,#d7eef7)}
+#ui{position:fixed;inset:0;pointer-events:none;z-index:5}.panel{background:rgba(11,15,20,.78);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(6px);border-radius:10px;padding:7px 10px;box-shadow:0 6px 20px #0004;font-weight:800}
+#tl{position:absolute;left:max(12px,env(safe-area-inset-left));top:max(10px,env(safe-area-inset-top));display:flex;flex-direction:column;gap:6px;max-width:min(420px,72vw)}#missionTitle{font-size:10px;letter-spacing:.14em;color:#ffd33d}#mission{font-size:14px;line-height:1.35}
+#tr{position:absolute;right:max(12px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));display:flex;flex-direction:column;align-items:flex-end;gap:6px}#money{font-size:19px;font-weight:950}#stats{font-size:12px}#stars{color:#ffd43b;letter-spacing:2px;margin-left:6px}
+#mini{position:absolute;left:max(12px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));width:140px;height:140px;border-radius:50%;background:#0b0f15d9;border:3px solid #ffffffbd;overflow:hidden;box-shadow:0 8px 30px #0005}#mini:before,#mini:after{content:"";position:absolute;background:#ffffff12}#mini:before{left:50%;top:0;width:1px;height:100%}#mini:after{top:50%;left:0;height:1px;width:100%}.dot{position:absolute;border-radius:50%;transform:translate(-50%,-50%)}#pd{width:10px;height:10px;background:#5ce4ff;box-shadow:0 0 0 3px #5ce4ff33}#md{width:12px;height:12px;background:#ffd43b;box-shadow:0 0 10px #ffd43b}
+#hint{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:none;font-size:13px}#toast{position:absolute;left:50%;top:13%;transform:translateX(-50%);opacity:0;transition:.18s;min-width:240px;text-align:center}#toast.show{opacity:1;transform:translate(-50%,5px)}
+#dialog{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);width:min(680px,92vw);display:none;pointer-events:auto;background:#111720f5;border:1px solid #ffffff24;border-radius:16px;padding:16px;box-shadow:0 18px 70px #0008}.speaker{font-size:12px;color:#7fdcff;font-weight:950}.dtext{font-size:16px;font-weight:800;line-height:1.5;margin:7px 0 12px}.choices{display:grid;gap:8px}.choice{pointer-events:auto;border:0;border-radius:10px;padding:11px 13px;background:#28313f;color:#fff;text-align:left;font-weight:850;font-size:14px}.choice:active{transform:scale(.99)}
+#title{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%,#3d4d61,#202833 38%,#090c10 100%)}#card{width:min(720px,92vw);text-align:center;padding:28px}.gta{font-size:clamp(58px,12vw,104px);font-weight:1000;letter-spacing:-.08em;line-height:.82;text-shadow:0 7px 0 #0005}.sub{font-size:clamp(22px,5vw,36px);font-weight:1000;letter-spacing:.09em;color:#ffd43b;margin-top:12px}.n63{font-size:clamp(40px,9vw,70px);font-weight:1000}.tag{max-width:620px;margin:16px auto 22px;color:#cbd4df;font-weight:700;line-height:1.55}.btn{pointer-events:auto;border:0;border-radius:14px;background:#ffd43b;color:#111;padding:14px 24px;font-size:18px;font-weight:1000;box-shadow:0 8px 0 #a77f00;cursor:pointer}.btn:active{transform:translateY(4px);box-shadow:0 4px 0 #a77f00}.small{font-size:12px;color:#9aa7b6;line-height:1.5;margin-top:17px}#status{margin-top:12px;font-size:13px;color:#ffdf79;min-height:20px}
+#end{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;background:#06090ded}#endCard{width:min(620px,92vw);background:#171d26;border:1px solid #ffffff22;border-radius:18px;padding:24px}#endCard h1{font-size:38px;margin:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}.row{background:#232c39;border-radius:10px;padding:10px 12px;font-weight:850}.row span{float:right;color:#ffd43b}
+#mobile{display:none;position:absolute;inset:0;pointer-events:none}.joy{position:absolute;left:max(20px,env(safe-area-inset-left));bottom:max(22px,env(safe-area-inset-bottom));width:96px;height:96px;border-radius:50%;background:#ffffff1c;border:2px solid #ffffff3d;pointer-events:auto;touch-action:none}.knob{position:absolute;left:50%;top:50%;width:42px;height:42px;margin:-21px;border-radius:50%;background:#ffffffbd}.abtn{position:absolute;right:max(24px,env(safe-area-inset-right));bottom:max(28px,env(safe-area-inset-bottom));width:72px;height:72px;border:0;border-radius:50%;background:#ffd43be8;font-weight:1000;font-size:24px;pointer-events:auto}.run{position:absolute;right:max(110px,calc(env(safe-area-inset-right) + 92px));bottom:max(88px,calc(env(safe-area-inset-bottom) + 68px));width:56px;height:56px;border:0;border-radius:50%;background:#ffffff25;color:#fff;font-weight:1000;font-size:10px;pointer-events:auto}
+#phoneBtn{position:absolute;right:max(12px,env(safe-area-inset-right));top:108px;width:46px;height:46px;border:1px solid #ffffff30;border-radius:50%;background:#111923df;color:#fff;font-size:21px;pointer-events:auto;box-shadow:0 8px 22px #0005}#phoneBadge{position:absolute;right:-2px;top:-3px;min-width:17px;height:17px;padding:0 3px;border-radius:10px;background:#ff4757;color:#fff;font-size:10px;line-height:17px;font-weight:1000;display:none}#phonePanel{position:absolute;right:max(12px,env(safe-area-inset-right));top:162px;width:min(360px,88vw);max-height:62vh;overflow:auto;display:none;pointer-events:auto;background:#101720f7;border:1px solid #ffffff26;border-radius:16px;padding:14px;box-shadow:0 20px 60px #0009}.phoneHead{display:flex;justify-content:space-between;align-items:center;font-weight:1000;font-size:17px;margin-bottom:9px}.phoneClose{border:0;background:#ffffff16;color:#fff;border-radius:9px;padding:6px 9px;font-weight:900}.phoneSec{font-size:10px;letter-spacing:.13em;color:#ffd43b;font-weight:1000;margin:12px 0 6px}.taskRow,.eventRow{background:#222c39;border-radius:10px;padding:9px 10px;margin:6px 0;font-size:12px;line-height:1.35}.taskRow.done{opacity:.5}.taskRow.missed{border-left:3px solid #ff5a5f}.eventRow button{width:100%;margin-top:7px;border:0;border-radius:8px;padding:8px;background:#ffd43b;color:#111;font-weight:1000}.phoneNote{font-size:11px;color:#aeb9c6;line-height:1.45}
+@media(max-width:900px),(pointer:coarse){#mini{width:108px;height:108px;bottom:126px;left:9px}#mobile{display:block}#hint{bottom:118px}#tl{left:9px;top:8px}#tr{right:9px;top:8px}.panel{font-size:11px;padding:6px 8px}#money{font-size:15px}#mission{font-size:12px}#phoneBtn{top:94px;right:9px;width:42px;height:42px;font-size:19px}#phonePanel{top:143px;right:9px;max-height:58vh}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui">
+ <div id="tl"><div id="clock" class="panel">08:20 · 6학년 3반</div><div class="panel"><div id="missionTitle">CURRENT MISSION</div><div id="mission">6학년 3반으로 이동하십시오.</div></div></div>
+ <div id="tr"><div id="money" class="panel">₩2,495,600</div><div id="stats" class="panel"><span id="hp">❤️ 100</span>　<span id="mental">🧠 100</span><span id="stars">☆☆☆☆☆</span></div></div>
+ <div id="mini"><div id="pd" class="dot"></div><div id="md" class="dot"></div></div>
+ <div id="hint" class="panel">E 상호작용</div><div id="toast" class="panel"></div>
+ <div id="dialog"><div id="speaker" class="speaker"></div><div id="dtext" class="dtext"></div><div id="choices" class="choices"></div></div>
+ <div id="mobile"><div id="joy" class="joy"><div id="knob" class="knob"></div></div><button id="run" class="run">RUN</button><button id="a" class="abtn">A</button></div>
+ <button id="phoneBtn" aria-label="휴대폰">📱<span id="phoneBadge"></span></button>
+ <div id="phonePanel"><div class="phoneHead"><span>교사용 휴대폰</span><button id="phoneClose" class="phoneClose">닫기</button></div><div class="phoneNote">학교를 자유롭게 돌아다녀도 됩니다. 일정과 연락을 놓치면 미처리 항목으로 남지만 GAME OVER는 없습니다.</div><div class="phoneSec">TODAY</div><div id="phoneTasks"></div><div class="phoneSec">MESSAGES</div><div id="phoneEvents"></div></div>
+</div>
+<div id="title"><div id="card"><div class="gta">GTA</div><div class="sub">GRAND TEACHER ACADEMY</div><div class="n63">6-3</div><div class="tag">10분 동안 초등학교 6학년 담임으로 학교를 자유롭게 돌아다니는 라이트 3인칭 오픈월드 웹게임. 미션은 강제가 아니며, 무시하거나 늦게 처리해도 하루는 계속됩니다.</div><button id="start" class="btn">08:20 출근하기</button><div id="status"></div><div class="small">LIGHT v1.4 · FREE ROAM · 미션을 무시해도 하루가 계속 흐르는 자유행동 빌드<br>법률·제도 관련 장면은 교육적 게임 연출이며 실제 개별 사건의 법률 판단을 대신하지 않습니다.</div></div></div>
+<div id="end"><div id="endCard"><h1>DAY COMPLETE</h1><div style="color:#ffd43b;font-weight:900">6학년 3반</div><div id="endGrid" class="grid"></div><div class="row" style="line-height:1.6">“선생님, 내일 봬요.”</div><button class="btn" style="width:100%;margin-top:14px" onclick="location.reload()">다시 출근하기</button></div></div>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id), canvas=$('c'), status=$('status');
+let gl=null, program=null, U={}, started=false, paused=false, last=0, gameSec=0, dayClosed=false;
+let money=2495600,hp=100,mental=100,unresolved=0,maxStars=0,handled=0,studentTalks=0,parentContacts=0,schoolTasks=0,helpCount=0,lessonPrep=0;
+const duration=600;
+const player={x:0,z:-11.7,yaw:0,moving:false,step:0};
+let camYaw=0,camPitch=.44; const keys={}; let joyX=0,joyY=0,running=false,drag=false,lastPX=0,lastPY=0;
+const objects=[], colliders=[], interactables=[], npcs=[];
+const C={
+ floor:[.91,.88,.80,1], corridor:[.85,.89,.91,1], wall:[.96,.95,.91,1], wall2:[.82,.87,.88,1], trim:[.40,.50,.57,1],
+ wood:[.65,.44,.26,1],desk:[.75,.56,.33,1],chair:[.30,.38,.45,1],grass:[.39,.67,.36,1],dirt:[.72,.52,.31,1],
+ black:[.07,.08,.10,1],yellow:[1,.79,.08,1],blue:[.27,.61,.84,1],red:[.86,.27,.27,1],green:[.28,.60,.39,1],
+ mint:[.43,.72,.66,1],purple:[.55,.42,.72,1],pink:[.82,.43,.58,1],orange:[.87,.54,.26,1],white:[.96,.96,.95,1],
+ skin:[.91,.72,.58,1],darkSkin:[.68,.48,.36,1],navy:[.20,.29,.42,1],sky:[.45,.72,.88,1],cream:[.95,.89,.72,1],
+ glass:[.55,.80,.90,.75],plant:[.25,.57,.31,1],metal:[.56,.61,.64,1]
+};
+function mat4(){return new Float32Array(16)}
+function multiply(o,a,b){const r=new Float32Array(16);for(let c=0;c<4;c++)for(let rr=0;rr<4;rr++)r[c*4+rr]=a[0*4+rr]*b[c*4+0]+a[1*4+rr]*b[c*4+1]+a[2*4+rr]*b[c*4+2]+a[3*4+rr]*b[c*4+3];o.set(r);return o}
+function perspective(o,fovy,aspect,n,f){const q=1/Math.tan(fovy/2),nf=1/(n-f);o.set([q/aspect,0,0,0,0,q,0,0,0,0,(f+n)*nf,-1,0,0,2*f*n*nf,0]);return o}
+function lookAt(o,e,c,u){let zx=e[0]-c[0],zy=e[1]-c[1],zz=e[2]-c[2],l=Math.hypot(zx,zy,zz)||1;zx/=l;zy/=l;zz/=l;let xx=u[1]*zz-u[2]*zy,xy=u[2]*zx-u[0]*zz,xz=u[0]*zy-u[1]*zx;l=Math.hypot(xx,xy,xz)||1;xx/=l;xy/=l;xz/=l;const yx=zy*xz-zz*xy,yy=zz*xx-zx*xz,yz=zx*xy-zy*xx;o.set([xx,yx,zx,0,xy,yy,zy,0,xz,yz,zz,0,-(xx*e[0]+xy*e[1]+xz*e[2]),-(yx*e[0]+yy*e[1]+yz*e[2]),-(zx*e[0]+zy*e[1]+zz*e[2]),1]);return o}
+function model(o,x,y,z,sx,sy,sz,yaw=0){const c=Math.cos(yaw),s=Math.sin(yaw);o.set([c*sx,0,-s*sx,0,0,sy,0,0,s*sz,0,c*sz,0,x,y,z,1]);return o}
+const VS=`attribute vec3 p;attribute vec3 n;uniform mat4 mvp;uniform mat4 model;varying float li;void main(){vec3 nn=normalize((model*vec4(n,0.0)).xyz);li=0.58+0.42*max(dot(nn,normalize(vec3(-0.45,0.85,0.35))),0.0);gl_Position=mvp*vec4(p,1.0);}`;
+const FS=`precision mediump float;uniform vec4 color;varying float li;void main(){gl_FragColor=vec4(color.rgb*li,color.a);}`;
+const verts=new Float32Array([
+-1,-1, 1,0,0,1, 1,-1, 1,0,0,1, 1, 1, 1,0,0,1,-1,-1,1,0,0,1,1,1,1,0,0,1,-1,1,1,0,0,1,
+ 1,-1,-1,0,0,-1,-1,-1,-1,0,0,-1,-1,1,-1,0,0,-1,1,-1,-1,0,0,-1,-1,1,-1,0,0,-1,1,1,-1,0,0,-1,
+-1,-1,-1,-1,0,0,-1,-1,1,-1,0,0,-1,1,1,-1,0,0,-1,-1,-1,-1,0,0,-1,1,1,-1,0,0,-1,-1,1,-1,0,0,
+ 1,-1,1,1,0,0,1,-1,-1,1,0,0,1,1,-1,1,0,0,1,-1,1,1,0,0,1,1,1,1,0,0,1,1,-1,1,0,0,
+-1,1,1,0,1,0,1,1,1,0,1,0,1,1,-1,0,1,0,-1,1,1,0,1,0,1,1,-1,0,1,0,-1,1,-1,0,1,0,
+-1,-1,-1,0,-1,0,1,-1,-1,0,-1,0,1,-1,1,0,-1,0,-1,-1,-1,0,-1,0,1,-1,1,0,-1,0,-1,-1,1,0,-1,0]);
+function shader(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s}
+function initGL(){gl=canvas.getContext('webgl',{alpha:false,antialias:true,powerPreference:'low-power'})||canvas.getContext('experimental-webgl');if(!gl)throw new Error('이 브라우저에서는 WebGL을 사용할 수 없습니다.');program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,VS));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,FS));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));gl.useProgram(program);const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,verts,gl.STATIC_DRAW);const ps=gl.getAttribLocation(program,'p'),ns=gl.getAttribLocation(program,'n');gl.enableVertexAttribArray(ps);gl.vertexAttribPointer(ps,3,gl.FLOAT,false,24,0);gl.enableVertexAttribArray(ns);gl.vertexAttribPointer(ns,3,gl.FLOAT,false,24,12);U.mvp=gl.getUniformLocation(program,'mvp');U.model=gl.getUniformLocation(program,'model');U.color=gl.getUniformLocation(program,'color');gl.enable(gl.DEPTH_TEST);gl.enable(gl.CULL_FACE);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.clearColor(.61,.81,.91,1);resize();}
+function add(x,y,z,sx,sy,sz,color,yaw=0){const o={x,y,z,sx,sy,sz,color,yaw};objects.push(o);return o}
+function solid(x,y,z,sx,sy,sz,color,yaw=0,pad=.18){const o=add(x,y,z,sx,sy,sz,color,yaw);if(!yaw)colliders.push({x,z,hx:sx+pad,hz:sz+pad});return o}
+function local(x,z,ox,oz,yaw){const c=Math.cos(yaw),s=Math.sin(yaw);return [x+c*ox+s*oz,z-s*ox+c*oz]}
+function part(arr,x,y,z,sx,sy,sz,color,yaw=0){arr.push(add(x,y,z,sx,sy,sz,color,yaw))}
+function person(x,z,shirt,scale=.78,name='',type='student',opt={}){
+ const yaw=opt.yaw||0, skin=opt.skin||C.skin, pants=opt.pants||C.navy, hair=opt.hair||C.black, arr=[];
+ const P=(ox,y,oz,sx,sy,sz,col)=>{const q=local(x,z,ox*scale,oz*scale,yaw);part(arr,q[0],y*scale,q[1],sx*scale,sy*scale,sz*scale,col,yaw)};
+ // LIGHT v1.3: 박스 한 덩어리 대신 저폴리 카툰 실루엣을 여러 파츠로 분리
+ P(0,1.23,0,.36,.31,.23,shirt); P(0,1.55,0,.32,.22,.22,shirt); // torso / chest
+ P(0,1.80,.01,.10,.09,.10,skin);                                   // neck
+ P(-.43,1.48,0,.09,.25,.10,shirt); P(.43,1.48,0,.09,.25,.10,shirt); // upper arms
+ P(-.43,1.18,.03,.085,.18,.085,skin);P(.43,1.18,.03,.085,.18,.085,skin); // forearms
+ P(-.43,.96,.05,.10,.10,.095,skin); P(.43,.96,.05,.10,.10,.095,skin);   // hands
+ // head: central face + cheek/ear blocks make the silhouette less Minecraft-like
+ P(0,2.09,0,.25,.27,.24,skin); P(-.24,2.08,.01,.055,.17,.18,skin); P(.24,2.08,.01,.055,.17,.18,skin);
+ P(-.285,2.10,0,.035,.075,.07,skin);P(.285,2.10,0,.035,.075,.07,skin); // ears
+ P(0,2.38,-.025,.29,.10,.255,hair); P(0,2.27,-.19,.27,.08,.075,hair); // crown/back hair
+ P(-.16,2.28,.215,.10,.055,.035,hair); P(.07,2.29,.225,.13,.05,.032,hair); // fringe
+ // face details on local +Z (front)
+ P(-.095,2.13,.253,.026,.027,.014,[.08,.07,.06,1]);P(.095,2.13,.253,.026,.027,.014,[.08,.07,.06,1]);
+ P(0,2.06,.258,.026,.035,.014,[.83,.61,.49,1]);P(0,1.99,.258,.052,.014,.014,[.40,.16,.14,1]);
+ // legs are split to read more like a stylized human figure
+ P(-.145,.73,0,.12,.31,.13,pants);P(.145,.73,0,.12,.31,.13,pants);
+ P(-.145,.34,.015,.105,.24,.115,pants);P(.145,.34,.015,.105,.24,.115,pants);
+ P(-.145,.075,.10,.15,.07,.23,C.black);P(.145,.075,.10,.15,.07,.23,C.black);
+ if(type==='student'){
+   const bag=opt.bag||[.30,.37,.48,1];P(0,1.30,-.29,.27,.32,.075,bag);P(-.25,1.43,-.22,.035,.29,.035,bag);P(.25,1.43,-.22,.035,.29,.035,bag);
+ }else{
+   P(0,1.52,.232,.09,.18,.018,C.white);P(0,1.58,.252,.026,.10,.015,C.blue); // shirt/tie
+   P(0,1.30,.247,.075,.10,.014,C.white);P(0,1.29,.262,.055,.035,.012,C.blue); // ID card
+ }
+ const n={x,z,name,type,parts:arr,yaw,baseX:x,baseZ:z};npcs.push(n);return n;
+}
+function desk(x,z,student=true){add(x,.34,z,.62,.28,.42,C.desk);add(x,.72,z-.26,.06,.38,.06,C.metal);if(student)add(x,.27,z+.73,.38,.25,.34,C.chair)}
+function computerDesk(x,z,yaw=0){solid(x,.38,z,.90,.34,.48,C.desk,yaw,.05);const q=local(x,z,0,.22,yaw);add(q[0],1.02,q[1],.32,.24,.05,C.black,yaw);const s=local(x,z,0,.15,yaw);add(s[0],.73,s[1],.05,.26,.05,C.metal,yaw)}
+function plant(x,z){add(x,.24,z,.23,.24,.23,C.wood);add(x,.72,z,.34,.48,.34,C.plant)}
+function world(){objects.length=0;colliders.length=0;interactables.length=0;npcs.length=0;
+ // outdoor and building foundation
+ add(3,-.18,1,34,.18,27,C.grass); add(-7,.00,-17,15,.04,6.2,C.dirt); add(23,.00,-17,7,.04,6.2,[.80,.67,.48,1]);
+ add(4,-.10,8,26,.10,17,C.floor); add(4,.005,8,26,.012,1.65,C.corridor); // corridor stripe
+ // outer shell (low walls keep third-person view readable)
+ solid(4,1.15,25,26,1.15,.18,C.wall); solid(-22,1.15,8,.18,1.15,17,C.wall); solid(30,1.15,8,.18,1.15,17,C.wall);
+ solid(-12.5,1.15,-9,9.5,1.15,.18,C.wall); solid(17,1.15,-9,13,1.15,.18,C.wall);
+ // north room dividers
+ solid(-7.0,1.05,18,.14,1.05,7,C.wall2); solid(9.5,1.05,18,.14,1.05,7,C.wall2);
+ // south room dividers
+ solid(-13,1.05,-1.5,.14,1.05,7.5,C.wall2);solid(-3,1.05,-1.5,.14,1.05,7.5,C.wall2);solid(12.5,1.05,-1.5,.14,1.05,7.5,C.wall2);
+ // room floor accents
+ add(-14.5,-.075,18,7.4,.02,6.8,[.90,.88,.77,1]); add(1.2,-.075,18,8,.02,6.8,[.91,.86,.75,1]); add(19.7,-.075,18,10,.02,6.8,[.93,.88,.74,1]);
+ add(-17.5,-.075,-1.5,4.3,.02,7,[.88,.94,.92,1]); add(-8,-.075,-1.5,4.6,.02,7,[.91,.88,.95,1]); add(4.7,-.075,-1.5,7.3,.02,7,[.88,.91,.94,1]); add(21,-.075,-1.5,8,.02,7,[.92,.88,.80,1]);
+ // corridor doors / colored room identity panels
+ [[-14.5,10.65,C.blue], [1.2,10.65,C.orange],[19.7,10.65,C.green],[-17.5,6.4,C.mint],[-8,6.4,C.purple],[4.7,6.4,C.navy],[21,6.4,C.orange]].forEach(v=>add(v[0],1.55,v[1],1.15,.32,.08,v[2]));
+ // windows north wall
+ for(let x=-19;x<28;x+=4.2){add(x,1.65,24.72,1.45,.70,.04,C.glass);add(x,2.35,24.70,1.47,.05,.06,C.trim)}
+ // 6-3 classroom: 24 desks, board, teacher desk, lockers, clock block
+ for(let r=0;r<4;r++)for(let c=0;c<6;c++){let x=13+(c*2.55),z=14.0+r*2.0;desk(x,z)}
+ add(20,1.55,24.60,4.4,.85,.06,[.19,.43,.31,1]);add(15.0,1.55,24.52,.70,.52,.05,C.white);add(20,.42,22.45,1.15,.36,.55,C.wood);
+ for(let i=0;i<6;i++)add(28.6,.48,12.2+i*1.75,.50,.48,.72,[.72,.77,.75,1]);add(25.8,2.12,24.56,.36,.36,.06,C.white);
+ // 6-1 / 6-2 simplified background classrooms
+ for(const baseX of [-18.8,-4.0])for(let r=0;r<2;r++)for(let c=0;c<3;c++)desk(baseX+c*2.6,14.5+r*3.0);
+ add(-14.5,1.55,24.60,3.0,.70,.05,[.19,.43,.31,1]);add(1.2,1.55,24.60,3.0,.70,.05,[.19,.43,.31,1]);
+ // office
+ [[0,-4],[5,-4],[9.5,-4],[0,1],[5,1],[9.5,1]].forEach(p=>computerDesk(p[0],p[1],0));
+ solid(10.7,.55,4.6,.65,.50,.55,C.white,0,.05); // printer
+ add(10.7,1.22,4.6,.48,.18,.42,C.metal);plant(-1.5,4.5);plant(11,4.3);
+ // infirmary
+ solid(-19,.35,-4.2,2.3,.30,.75,C.white,0,.03);add(-19,.72,-4.85,2.0,.10,.25,[.59,.78,.91,1]);
+ solid(-19,.35,1.0,2.3,.30,.75,C.white,0,.03);add(-19,.72,.35,2.0,.10,.25,[.59,.78,.91,1]);add(-14.1,1.2,-4.0,.55,1.2,.45,C.white);
+ // counseling room
+ add(-10,.42,-2.0,1.7,.38,.55,[.53,.63,.68,1]);add(-6.2,.42,-2.0,1.7,.38,.55,[.53,.63,.68,1]);add(-8.1,.38,1.1,1.4,.30,.80,C.wood);plant(-11.5,4.2);
+ // library
+ for(let x=15.3;x<28;x+=3.2){solid(x,1.15,-4.8,.55,1.15,1.6,C.wood,0,.04);for(let y=.35;y<2.1;y+=.55)add(x,y,-3.2,.55,.035,1.55,C.cream)}
+ add(20,.36,2.8,3.2,.30,.85,C.desk);add(17.7,.22,2.8,.40,.22,.36,C.chair);add(22.3,.22,2.8,.40,.22,.36,C.chair);
+ // cafeteria annex and tables
+ add(23,-.08,-17,7,.08,6,C.floor);solid(16,1.0,-17,.15,1.0,6,C.wall2);solid(30,1.0,-17,.15,1.0,6,C.wall2);solid(23,1.0,-23,7,1.0,.15,C.wall2);
+ for(let r=0;r<3;r++){add(23,.34,-13-r*3.2,4.0,.27,.45,C.desk);add(23,.25,-12.1-r*3.2,3.5,.18,.28,C.chair);add(23,.25,-13.9-r*3.2,3.5,.18,.28,C.chair)}
+ solid(28.5,.62,-20.8,.75,.62,2.0,C.metal,0,.05);add(28.5,1.28,-20.8,.80,.06,2.05,C.white);
+ // entrance path / canopy / school sign
+ add(0,.02,-10.8,3.4,.03,2.2,[.70,.72,.72,1]);add(0,2.5,-8.9,3.6,.15,1.2,C.trim);add(-3.0,1.15,-8.9,.16,1.15,.16,C.trim);add(3.0,1.15,-8.9,.16,1.15,.16,C.trim);
+ add(-5.5,1.15,-9.1,1.8,.75,.18,C.navy);add(-5.5,2.10,-9.1,1.5,.12,.18,C.white);
+ // playground props: goal, bench, trees
+ add(-8,.08,-17,3.2,.06,.10,C.white);add(-11.1,.95,-17,.10,.95,.10,C.white);add(-4.9,.95,-17,.10,.95,.10,C.white);add(-8,1.85,-17,3.2,.10,.10,C.white);
+ add(5,.22,-20,2.3,.18,.35,C.wood);for(const [x,z] of [[-19,-21],[9,-12],[-19,-11]]){add(x,.65,z,.32,.65,.32,C.wood);add(x,1.8,z,.95,1.0,.95,C.plant)}
+ // student roster - hero 8 + background 16
+ const hero=[['민준',C.red],['서윤',C.purple],['지호',C.green],['도윤',C.navy],['예린',C.pink],['준서',[.40,.44,.48,1]],['소민',C.mint],['현우',C.blue]];
+ const bags=[[.24,.34,.49,1],[.58,.35,.53,1],[.30,.48,.34,1],[.36,.34,.30,1]];
+ for(let i=0;i<24;i++){const r=Math.floor(i/6),c=i%6,x=13+c*2.55,z=14+r*2.0+.72,nm=i<8?hero[i][0]:'학생'+(i+1),col=i<8?hero[i][1]:[C.orange,C.blue,C.green,C.pink][i%4];person(x,z,col,.67,nm,'student',{bag:bags[i%bags.length],hair:i%3===0?[.18,.12,.09,1]:C.black});}
+ // staff
+ person(5.2,2.7,[.43,.34,.29,1],.88,'6학년부장','staff',{pants:[.27,.28,.29,1]});
+ person(-18.2,3.0,C.mint,.88,'보건교사','staff',{pants:[.36,.43,.45,1]});
+ person(-8.0,2.8,C.purple,.88,'상담교사','staff',{pants:[.35,.31,.42,1]});
+ person(8.7,3.0,C.navy,.90,'교감','staff',{pants:[.24,.25,.28,1]});
+ person(27.2,-20.4,C.orange,.88,'영양교사','staff',{pants:[.37,.34,.28,1]});
+ // interaction zones
+ addZone('class',20,22.4,2.0,'A/E 교탁 사용','class');addZone('office',5,-1.0,2.6,'A/E 교무실 PC','office');addZone('caf',23,-16.5,3.2,'A/E 급식실','caf');addZone('entrance',0,-8.2,2.6,'A/E 현관 확인','entrance');addZone('counsel',-8,1.0,2.6,'A/E 상담실 이용','counsel');addZone('library',20,2.8,2.8,'A/E 수업 준비','library');addZone('infirmary',-18,-2.0,2.5,'A/E 보건실 이용','infirmary');addZone('copy',10.7,4.6,1.6,'A/E 복사기','copy');addZone('coffee',-1.5,4.5,1.5,'A/E 교무실 커피','coffee');addZone('vending',5.2,-8.7,1.7,'A/E 자판기','vending');addZone('bench',5,-20,2.0,'A/E 운동장 벤치','bench');addZone('gate',0,-21.5,2.4,'A/E 교문','gate');
+}
+function addZone(id,x,z,r,label,zone){interactables.push({id,x,z,r,label,zone})}
+const goals=[
+ {id:'arrival',start:0,due:75,zone:'class',title:'출근',text:'6학년 3반으로 이동해 교탁을 확인하십시오.',x:20,z:22.4,done:false,missed:false},
+ {id:'attendance',start:35,due:130,zone:'class',title:'출석 확인',text:'오늘 출석 상태를 확인하십시오.',x:20,z:22.4,done:false,missed:false},
+ {id:'class1',start:95,due:245,zone:'class',title:'1교시',text:'교실에서 오전 수업을 시작하십시오.',x:20,z:22.4,done:false,missed:false},
+ {id:'lunch',start:285,due:390,zone:'caf',title:'급식',text:'급식실에서 학생들과 점심시간을 보내십시오.',x:23,z:-16.5,done:false,missed:false},
+ {id:'dismissal',start:425,due:525,zone:'entrance',title:'하교',text:'현관에서 하교 상황을 확인하십시오.',x:0,z:-8.2,done:false,missed:false},
+ {id:'records',start:495,due:600,zone:'office',title:'방과 후',text:'교무실에서 오늘 기록을 정리하십시오.',x:5,z:-1.0,done:false,missed:false}
+];
+let sideJob=null,pendingEvents=[],eventSeq=0;const fired=new Set(),bellFired=new Set(),flags={},cooldowns={};
+const eventDefs=[
+ {t:70,title:'출결 확인',who:'SYSTEM',text:'소민의 자리가 아직 비어 있습니다.',choices:[['학교 연락수단으로 확인한다',()=>{mental-=2;parentContacts++;handled++;flags.missingWait=false;}],['조금 더 기다린다',()=>{mental-=1;flags.missingWait=true;}]]},
+ {t:135,title:'수업 중 끼어들기',who:'민준',text:'“선생님! 저 답 알아요!” 설명 중 계속 큰 소리로 끼어듭니다.',choices:[['차례를 안내한다',()=>{studentTalks++;handled++;mental-=1;}],['잠깐 따로 이야기한다',()=>{studentTalks++;handled++;mental-=2;}]]},
+ {t:215,title:'16:00 마감 업무',who:'SYSTEM',text:'교무실 PC에 오늘 16:00 마감 학교업무가 도착했습니다.',choices:[['교무실 업무를 목적지로 표시',()=>{tempMission('교무실 업무','교무실 PC에서 마감 업무를 처리하십시오.',5,-1,'office',()=>{schoolTasks++;mental-=2;})}],['일단 보류한다',()=>toast('할 일에 남겨두었습니다.')]]},
+ {t:255,title:'학생의 선물',who:'학생',text:'“선생님, 엄마가 드리래요.” 포장된 선물을 건넵니다.',choices:[['마음만 받고 돌려준다',()=>{handled++;mental+=3;toast('멘탈 +3')}],['받은 뒤 즉시 학교에 알리고 반환 절차를 확인한다',()=>{handled++;mental-=1;tempMission('반환 절차 확인','교무실에서 반환·기록 절차를 확인하십시오.',5,-1,'office',()=>{schoolTasks++;})}],['그냥 받는다',()=>{money-=210000;mental-=12;flags.giftAccepted=true;toast('-₩210,000 · 게임상 시나리오 연출')}]]},
+ {t:330,title:'급식 상태 확인',who:'예린',text:'“오늘은 밥을 못 먹겠어요.”',choices:[['이유와 상태를 확인한다',()=>{studentTalks++;handled++;mental-=1;}],['보건교사에게 확인을 부탁한다',()=>{helpCount++;handled++;mental+=1;}]]},
+ {t:395,title:'운동장 부상',who:'현우',text:'운동장에서 친구와 부딪혀 넘어졌습니다.',choices:[['보건실 동행을 목적지로 표시',()=>{mental-=3;tempMission('보건실 동행','보건실로 이동해 상태를 확인하십시오.',-18,-2,'infirmary',()=>{handled++;})}],['보건교사에게 지원을 요청한다',()=>{helpCount++;handled++;mental-=2;}]]},
+ {t:450,title:'보호자 문의',who:'보호자 연락',text:'“어제 우리 아이만 지적하셨다고 들었는데 상황을 알고 싶습니다.”',choices:[['확인한 사실을 중심으로 설명한다',()=>{parentContacts++;handled++;mental-=4;}],['공식 연락시간을 안내한다',()=>{parentContacts++;handled++;mental-=2;}]]},
+ {t:505,title:'작은 보람',who:'학생',text:'“선생님, 아까 설명해 주셔서 이제 알겠어요.”',choices:[['잘했다고 격려한다',()=>{studentTalks++;handled++;mental+=5;toast('멘탈 +5')}]]},
+ {t:565,title:'사실확인 요청',who:'SYSTEM',text:'지난주 생활지도와 관련한 사실확인 요청이 학교로 전달되었습니다.',choices:[['학교·교육지원청 지원 절차를 목적지로 표시',()=>{mental-=5;tempMission('사실확인 지원','상담실에서 지원 절차를 확인하십시오.',-8,1,'counsel',()=>{handled++;mental+=1;})}],['개인 법률상담을 먼저 예약한다',()=>{money-=150000;mental-=7;handled++;toast('-₩150,000 · 게임상 개인 법률상담 비용')}]]}
+];
+const bells=[{t:90,text:'🔔 1교시 시작'},{t:285,text:'🔔 점심시간'},{t:420,text:'🔔 오후 수업 종료'},{t:500,text:'🔔 하교·방과 후 시간'}];
+function currentMission(){if(sideJob)return sideJob;if(dayClosed)return {title:'퇴근 가능',text:'교문으로 가서 퇴근하거나, 학교에 남아 미처리 업무를 더 처리할 수 있습니다.',x:0,z:-21.5};const active=goals.find(g=>!g.done&&!g.missed&&gameSec>=g.start);if(active)return active;const next=goals.find(g=>!g.done&&!g.missed&&gameSec<g.start);if(next)return {title:'FREE ROAM',text:'자유 행동 중 · 다음 일정 '+next.title+'까지 학교를 둘러보거나 학생·동료와 상호작용하세요.',x:next.x,z:next.z};return {title:'FREE ROAM',text:'학교 안을 자유롭게 돌아다니세요.',x:player.x,z:player.z}}
+function tempMission(title,text,x,z,zone,onComplete){if(sideJob){unresolved++;toast('이전 사이드 미션을 보류했습니다.')}sideJob={title,text,x,z,zone,onComplete,due:gameSec+70};unresolved++;toast('SIDE MISSION · '+title);renderPhone()}
+function queueEvent(def){const e={...def,id:++eventSeq};pendingEvents.push(e);unresolved++;toast('📱 새 이벤트 · '+def.title);renderPhone()}
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),2200)}
+function showDialog(who,text,choices,resolveOne=false,onDone=null){paused=true;$('speaker').textContent=who;$('dtext').textContent=text;const c=$('choices');c.innerHTML='';choices.forEach(([lab,fn])=>{const b=document.createElement('button');b.className='choice';b.textContent=lab;b.onclick=()=>{fn&&fn();$('dialog').style.display='none';paused=false;if(resolveOne)unresolved=Math.max(0,unresolved-1);onDone&&onDone();renderPhone()};c.appendChild(b)});$('dialog').style.display='block'}
+function completeGoal(g){const late=g.missed;g.done=true;if(late)unresolved=Math.max(0,unresolved-1);handled++;if(g.id==='class1')hp-=4;if(g.id==='lunch')hp-=3;if(g.id==='dismissal')hp-=2;if(g.id==='records'){schoolTasks++;lessonPrep++}toast((late?'LATE COMPLETE · ':'MISSION COMPLETE · ')+g.title);renderPhone()}
+function useCooldown(id,sec=18){if((cooldowns[id]||0)>gameSec){toast('조금 있다 다시 이용할 수 있습니다.');return false}cooldowns[id]=gameSec+sec;return true}
+function doMission(zone){if(sideJob&&sideJob.zone===zone){const j=sideJob;sideJob=null;unresolved=Math.max(0,unresolved-1);handled++;j.onComplete&&j.onComplete();toast('SIDE MISSION COMPLETE · '+j.title);renderPhone();return}const g=goals.find(x=>!x.done&&x.zone===zone&&gameSec>=Math.max(0,x.start-20));if(g){completeGoal(g);return}if(zone==='gate'){if(dayClosed)showDialog('SYSTEM','오늘 근무시간이 끝났습니다. 남은 일을 더 처리할 수도 있습니다.',[['퇴근한다',endDay],['조금 더 남는다',()=>toast('FREE ROAM · 야근 중')]]);else toast('아직 퇴근 시간 전입니다.');return}if(zone==='vending'&&useCooldown('vending',30)){money-=1500;mental+=2;toast('-₩1,500 · 자판기 커피 · 멘탈 +2');return}if(zone==='coffee'&&useCooldown('coffee',28)){mental+=1;toast('교무실 믹스커피 · 멘탈 +1');return}if(zone==='bench'&&useCooldown('bench',35)){mental+=2;hp=Math.min(100,hp+2);if(!dayClosed)gameSec=Math.min(duration,gameSec+5);toast('잠깐 앉아 쉬었습니다. · 체력 +2 · 멘탈 +2');return}if(zone==='copy'&&useCooldown('copy',22)){schoolTasks++;lessonPrep++;toast('활동지 25부 출력 · 수업준비 +');return}if(zone==='office'&&useCooldown('office',15)){if(unresolved>0){unresolved--;handled++;schoolTasks++;toast('밀린 업무 1건 정리')}else{schoolTasks++;toast('학교 업무를 정리했습니다.')}return}if(zone==='library'&&useCooldown('library',24)){lessonPrep++;mental+=2;toast('내일 수업 준비 · 멘탈 +2');return}if(zone==='counsel'&&useCooldown('counsel',20)){mental+=1;toast('상담 자료를 확인했습니다.');return}if(zone==='infirmary'&&useCooldown('infirmary',20)){toast('보건실에서 학생 상태를 확인했습니다.');return}if(zone==='class'&&useCooldown('class',18)){mental+=1;toast('교실을 둘러봤습니다. · 멘탈 +1');return}if(zone==='caf')toast('급식실을 둘러봅니다.');else if(zone==='entrance')toast('현관 주변을 확인했습니다.')}
+function nearest(){let b=null,bd=999;for(const z of interactables){const d=Math.hypot(player.x-z.x,player.z-z.z);if(d<z.r&&d<bd){b={label:z.label,action:()=>doMission(z.zone)};bd=d}}for(const n of npcs){const d=Math.hypot(player.x-n.x,player.z-n.z);if(d<1.38&&d<bd){b={label:'A/E '+n.name+'와 대화',action:()=>npcTalk(n)};bd=d}}return b}
+function npcTalk(n){if(n.type==='student'){if(!useCooldown('npc_'+n.name,15))return;studentTalks++;showDialog(n.name,'“선생님!” 잠깐 이야기를 나눕니다.',[['응, 이야기해보자.',()=>{mental=Math.min(100,mental+1);handled++}],['지금은 급한 일이 있어.',()=>{}]])}else{if(!useCooldown('npc_'+n.name,18))return;showDialog(n.name,'“필요하면 말씀하세요.”',[['도움을 요청한다',()=>{helpCount++;mental=Math.min(100,mental+2);handled++;if(unresolved>0)unresolved--}],['잠깐 이야기한다',()=>{mental=Math.min(100,mental+1)}],['괜찮습니다',()=>{}]])}}
+function interact(){if(!started||paused)return;const n=nearest();n?n.action():toast('주변에 바로 상호작용할 대상이 없습니다. 자유롭게 이동해 보세요.')}
+function openEvent(ev){togglePhone(false);showDialog(ev.who,ev.text,ev.choices,true,()=>{pendingEvents=pendingEvents.filter(x=>x.id!==ev.id)})}
+function togglePhone(force){const p=$('phonePanel'),show=force===undefined?p.style.display!=='block':force;p.style.display=show?'block':'none';renderPhone()}
+function renderPhone(){const tasks=$('phoneTasks'),events=$('phoneEvents');if(!tasks||!events)return;tasks.innerHTML='';for(const g of goals){const d=document.createElement('div');d.className='taskRow '+(g.done?'done':g.missed?'missed':'');d.textContent=(g.done?'✓ ':g.missed?'! ':'○ ')+g.title+(g.missed&&!g.done?' · 미처리':'');tasks.appendChild(d)}events.innerHTML='';if(!pendingEvents.length){const d=document.createElement('div');d.className='phoneNote';d.textContent='새 메시지가 없습니다.';events.appendChild(d)}else pendingEvents.forEach(ev=>{const d=document.createElement('div');d.className='eventRow';d.innerHTML='<b>'+ev.title+'</b><br><span style="color:#aeb9c6">'+ev.who+'</span>';const b=document.createElement('button');b.textContent='확인';b.onclick=()=>openEvent(ev);d.appendChild(b);events.appendChild(d)});const badge=$('phoneBadge');badge.textContent=pendingEvents.length;badge.style.display=pendingEvents.length?'block':'none'}
+function relocate(n,x,z){const dx=x-n.x,dz=z-n.z;n.x=x;n.z=z;for(const p of n.parts){p.x+=dx;p.z+=dz}}
+function updateNpcSchedule(){const students=npcs.filter(n=>n.type==='student');if(gameSec>=285&&!flags.lunchMoved){flags.lunchMoved=true;students.forEach((n,i)=>relocate(n,18+(i%6)*1.9,-12-Math.floor(i/6)*2.6));toast('학생들이 급식실로 이동합니다.')}if(gameSec>=395&&!flags.returned){flags.returned=true;students.forEach(n=>relocate(n,n.baseX,n.baseZ));toast('학생들이 교실로 돌아갑니다.')}if(gameSec>=435&&!flags.dismissMoved){flags.dismissMoved=true;students.slice(0,12).forEach((n,i)=>relocate(n,-5+(i%6)*1.7,-10-Math.floor(i/6)*2.4))}}
+function blocked(x,z){const r=.30;for(const c of colliders)if(Math.abs(x-c.x)<c.hx+r&&Math.abs(z-c.z)<c.hz+r)return true;return false}
+function update(dt){if(!started||paused)return;let right=(keys.d?1:0)-(keys.a?1:0)+joyX,forward=(keys.w?1:0)-(keys.s?1:0)+joyY,l=Math.hypot(right,forward);player.moving=l>.05;if(player.moving){right/=Math.max(1,l);forward/=Math.max(1,l);const sy=Math.sin(camYaw),cy=Math.cos(camYaw),dx=cy*right+sy*forward,dz=-sy*right+cy*forward,sp=(keys.shift||running)?5.0:3.15;const nx=player.x+dx*sp*dt,nz=player.z+dz*sp*dt;if(!blocked(nx,player.z))player.x=nx;if(!blocked(player.x,nz))player.z=nz;player.yaw=Math.atan2(dx,dz);player.step+=dt*((keys.shift||running)?10:7);if(keys.shift||running)hp-=dt*.45}player.x=Math.max(-21.2,Math.min(29.0,player.x));player.z=Math.max(-23.0,Math.min(24.0,player.z));if(!dayClosed){gameSec+=dt;mental-=dt*.011;if(gameSec>=duration){gameSec=duration;dayClosed=true;toast('16:30 · 퇴근 가능 · 교문으로 가거나 남아서 일을 더 할 수 있습니다.');renderPhone()}}for(const b of bells)if(gameSec>=b.t&&!bellFired.has(b.t)){bellFired.add(b.t);toast(b.text)}for(const g of goals)if(!g.done&&!g.missed&&gameSec>g.due){g.missed=true;unresolved++;toast('MISSED · '+g.title+' · 하루는 계속됩니다.');renderPhone()}for(let i=0;i<eventDefs.length;i++)if(gameSec>=eventDefs[i].t&&!fired.has(i)){fired.add(i);queueEvent(eventDefs[i])}if(flags.missingWait&&gameSec>=350&&!flags.missingFollowup){flags.missingFollowup=true;queueEvent({title:'출결 후속 연락',who:'보호자 연락',text:'“아침에 학교에서 확인 연락이 늦었다고 들었습니다. 무슨 상황이었나요?”',choices:[['확인된 사실과 당시 조치를 설명한다',()=>{parentContacts++;handled++;mental-=3;}],['관리자와 함께 확인 후 연락한다',()=>{helpCount++;parentContacts++;handled++;mental-=2;}]]})}if(flags.giftAccepted&&gameSec>=520&&!flags.giftFollowup){flags.giftFollowup=true;queueEvent({title:'선물 수수 후속 확인',who:'SYSTEM',text:'받은 물품에 대한 반환·신고 절차 확인이 필요합니다.',choices:[['교무실에서 절차를 확인한다',()=>tempMission('선물 후속 처리','교무실에서 반환·기록 절차를 확인하십시오.',5,-1,'office',()=>{schoolTasks++;handled++;})],['오늘은 미룬다',()=>{mental-=2;}]]})}if(sideJob&&gameSec>sideJob.due){toast('SIDE MISSION MISSED · '+sideJob.title);sideJob=null;unresolved++;renderPhone()}updateNpcSchedule()}
+function drawCube(o,pv){const mo=model(mat4(),o.x,o.y,o.z,o.sx,o.sy,o.sz,o.yaw||0),mvp=multiply(mat4(),pv,mo);gl.uniformMatrix4fv(U.mvp,false,mvp);gl.uniformMatrix4fv(U.model,false,mo);gl.uniform4fv(U.color,o.color);gl.drawArrays(gl.TRIANGLES,0,36)}
+function drawPlayer(pv){const x=player.x,z=player.z,yaw=player.yaw,bob=player.moving?Math.abs(Math.sin(player.step))*.028:0,walk=player.moving?Math.sin(player.step)*.13:0;const arr=[];const P=(ox,y,oz,sx,sy,sz,col)=>{const q=local(x,z,ox,oz,yaw);arr.push({x:q[0],y:y+bob,z:q[1],sx,sy,sz,color:col,yaw})};
+ const jacket=[.25,.43,.59,1],jacketDark=[.19,.34,.49,1],pants=[.23,.26,.31,1],hair=[.08,.065,.055,1],skin=C.skin;
+ // jacket/body: side panels + visible shirt center gives a cleaner low-poly silhouette
+ P(-.19,1.36,0,.19,.42,.25,jacket);P(.19,1.36,0,.19,.42,.25,jacket);P(0,1.39,.255,.105,.38,.025,C.white);
+ P(0,1.78,.01,.11,.09,.10,skin); // neck
+ // articulated-looking arms and hands
+ P(-.47,1.51,-walk*.40,.105,.25,.115,jacket);P(.47,1.51,walk*.40,.105,.25,.115,jacket);
+ P(-.47,1.20,-walk*.72,.09,.19,.09,jacketDark);P(.47,1.20,walk*.72,.09,.19,.09,jacketDark);
+ P(-.47,.98,-walk*.82,.105,.095,.10,skin);P(.47,.98,walk*.82,.105,.095,.10,skin);
+ // head / cheeks / ears / hair / facial features
+ P(0,2.08,0,.27,.29,.25,skin);P(-.25,2.07,.01,.055,.18,.18,skin);P(.25,2.07,.01,.055,.18,.18,skin);
+ P(-.30,2.09,0,.035,.075,.065,skin);P(.30,2.09,0,.035,.075,.065,skin);
+ P(0,2.39,-.025,.305,.10,.27,hair);P(0,2.28,-.20,.28,.08,.075,hair);P(-.16,2.29,.22,.11,.055,.035,hair);P(.07,2.30,.225,.14,.05,.03,hair);
+ P(-.10,2.13,.266,.027,.029,.014,[.075,.065,.055,1]);P(.10,2.13,.266,.027,.029,.014,[.075,.065,.055,1]);
+ P(-.10,2.19,.268,.045,.012,.012,hair);P(.10,2.19,.268,.045,.012,.012,hair); // brows
+ P(0,2.06,.271,.027,.035,.014,[.83,.61,.49,1]);P(0,1.99,.271,.055,.014,.014,[.38,.14,.13,1]);
+ // split legs + shoes
+ P(-.16,.75,walk,.13,.32,.145,pants);P(.16,.75,-walk,.13,.32,.145,pants);
+ P(-.16,.35,walk*.85,.115,.25,.13,pants);P(.16,.35,-walk*.85,.115,.25,.13,pants);
+ P(-.16,.075,.12+walk*.75,.17,.075,.255,C.black);P(.16,.075,.12-walk*.75,.17,.075,.255,C.black);
+ // messenger bag / strap / ID / tie
+ P(-.39,1.22,-.22,.18,.29,.075,[.22,.18,.15,1]);P(-.25,1.57,-.16,.035,.38,.035,[.30,.24,.20,1]);
+ P(0,1.58,.283,.032,.12,.016,[.19,.35,.54,1]);P(0,1.31,.286,.075,.105,.014,C.white);P(0,1.29,.301,.055,.036,.011,C.blue);
+ arr.forEach(o=>drawCube(o,pv))}
+function render(){if(!gl)return;gl.viewport(0,0,canvas.width,canvas.height);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);const dist=7.1,ey=3.35+Math.sin(camPitch)*1.05,ex=player.x-Math.sin(camYaw)*dist,ez=player.z-Math.cos(camYaw)*dist;const view=lookAt(mat4(),[ex,ey,ez],[player.x,1.30,player.z],[0,1,0]),proj=perspective(mat4(),Math.PI/3,canvas.width/canvas.height,.1,120),pv=multiply(mat4(),proj,view);for(const o of objects)drawCube(o,pv);const m=currentMission();drawCube({x:m.x,y:1.05,z:m.z,sx:.11,sy:1.05,sz:.11,color:[1,.76,.05,.76]},pv);drawCube({x:m.x,y:.035,z:m.z,sx:.80,sy:.035,sz:.80,color:[1,.76,.05,1]},pv);drawPlayer(pv)}
+function resize(){const coarse=matchMedia('(pointer:coarse)').matches,d=Math.min(devicePixelRatio||1,coarse?1.45:2);canvas.width=Math.max(1,Math.floor(innerWidth*d));canvas.height=Math.max(1,Math.floor(innerHeight*d))}
+function locationName(){const x=player.x,z=player.z;if(z<-10&&x>15)return'급식실';if(z<-10)return'운동장';if(z>11&&x>9.5)return'6학년 3반';if(z>11&&x>-7)return'6학년 2반';if(z>11)return'6학년 1반';if(z<6&&x<-13)return'보건실';if(z<6&&x<-3)return'상담실';if(z<6&&x<12.5)return'교무실';if(z<6)return'도서실';if(z<11&&z>6)return'중앙 복도';return'현관'}
+function hud(){const mins=Math.min(490,Math.floor(gameSec/duration*490)),hh=8+Math.floor((20+mins)/60),mm=(20+mins)%60;$('clock').textContent=String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0')+' · '+locationName();$('money').textContent='₩'+Math.round(money).toLocaleString('ko-KR');$('hp').textContent='❤️ '+Math.max(0,Math.round(hp));$('mental').textContent='🧠 '+Math.max(0,Math.round(mental));let s=Math.min(5,Math.max(0,unresolved));maxStars=Math.max(maxStars,s);$('stars').textContent='★'.repeat(s)+'☆'.repeat(5-s);const cm=currentMission();$('missionTitle').textContent=(cm.title==='FREE ROAM'?'FREE ROAM · ':'CURRENT MISSION · ')+cm.title.toUpperCase();$('mission').textContent=cm.text;const map=(v,min,max,size)=>((v-min)/(max-min))*size,sz=$('mini').clientWidth;$('pd').style.left=map(player.x,-22,30,sz)+'px';$('pd').style.top=(sz-map(player.z,-23,25,sz))+'px';const m=currentMission();$('md').style.left=map(m.x,-22,30,sz)+'px';$('md').style.top=(sz-map(m.z,-23,25,sz))+'px';const n=nearest();$('hint').style.display=n?'block':'none';if(n)$('hint').textContent=n.label}
+function loop(t){const dt=Math.min(.04,(t-last)/1000||.016);last=t;update(dt);render();hud();requestAnimationFrame(loop)}
+function endDay(){if(!started)return;started=false;const rows=[['처리한 상황',handled],['미처리 업무',unresolved],['학생과 대화',studentTalks+'회'],['보호자 연락',parentContacts+'회'],['학교 업무',schoolTasks+'건'],['도움을 요청',helpCount+'회'],['최대 업무위기','★'.repeat(maxStars)+'☆'.repeat(5-maxStars)],['체력',Math.max(0,Math.round(hp))],['멘탈',Math.max(0,Math.round(mental))],['미확인 연락',pendingEvents.length+'건'],['내일 수업 준비',Math.max(20,Math.min(92,42+helpCount*5+lessonPrep*8-schoolTasks*2))+'%']];$('endGrid').innerHTML=rows.map(r=>'<div class="row">'+r[0]+'<span>'+r[1]+'</span></div>').join('');$('end').style.display='flex'}
+window.addEventListener('resize',resize);window.addEventListener('keydown',e=>{const k=e.key.toLowerCase();keys[k]=true;if(k==='e')interact();if(k==='tab'||k==='m'){e.preventDefault();togglePhone()}});window.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;drag=true;lastPX=e.clientX;lastPY=e.clientY;canvas.setPointerCapture?.(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-lastPX,dy=e.clientY-lastPY;lastPX=e.clientX;lastPY=e.clientY;camYaw-=dx*.007;camPitch=Math.max(.13,Math.min(.80,camPitch+dy*.0035))});canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);
+const joy=$('joy'),knob=$('knob');function joyMove(e){const r=joy.getBoundingClientRect(),x=e.clientX-(r.left+r.width/2),y=e.clientY-(r.top+r.height/2),m=32,d=Math.hypot(x,y)||1,nx=d>m?x/d*m:x,ny=d>m?y/d*m:y;joyX=nx/m;joyY=-ny/m;knob.style.transform='translate('+nx+'px,'+ny+'px)'}joy.addEventListener('pointerdown',e=>{joy.setPointerCapture?.(e.pointerId);joyMove(e)});joy.addEventListener('pointermove',e=>joyMove(e));joy.addEventListener('pointerup',()=>{joyX=joyY=0;knob.style.transform='translate(0,0)'});joy.addEventListener('pointercancel',()=>{joyX=joyY=0;knob.style.transform='translate(0,0)'});$('a').addEventListener('click',interact);['pointerdown','touchstart'].forEach(ev=>$('run').addEventListener(ev,e=>{e.preventDefault?.();running=true},{passive:false}));['pointerup','pointercancel','touchend'].forEach(ev=>$('run').addEventListener(ev,()=>running=false));$('phoneBtn').addEventListener('click',()=>togglePhone());$('phoneClose').addEventListener('click',()=>togglePhone(false));
+$('start').addEventListener('click',()=>{if(started)return;status.textContent='학교를 불러오는 중…';try{initGL();world();$('title').style.display='none';started=true;last=performance.now();if(innerHeight>innerWidth)toast('아이폰은 가로 화면을 권장합니다.');else toast('FREE ROAM · 학교를 자유롭게 이동하세요.');renderPhone();requestAnimationFrame(loop)}catch(err){console.error(err);status.textContent='실행 오류: '+(err&&err.message?err.message:String(err))+' · Safari의 HTTPS 주소에서 실행해 주세요.'}});
+})();
+</script>
+</body>
+</html>
